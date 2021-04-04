@@ -2,7 +2,7 @@
 
 ## サイト概要
 - 宇宙に関する情報を発信するSNSです。
-- 宇宙には無数に天体があり、その中には宇宙人も居るかもしれません。まだまだ分からないことだらけの分野です。
+- 宇宙には無数に天体があり、その中には宇宙人も居るかもしれません。可能性も無限大に広がっております。
   そんな宇宙好きの人達の集いの場を作りたいと思います。
 
 
@@ -23,13 +23,17 @@
 - 天体イベントがある時
 
 ## 設計書
-- ER図(https://drive.google.com/file/d/12vPC_LJlwa50aowdzxVAH_vSdHRmpsWa/view?usp=sharing)
-- テーブル定義書(https://www.icloud.com/numbers/0XoGYbtKB1nHrO6oe2EOXd5lA)
-- アプリケーション詳細設計(https://1drv.ms/x/s!AoI6vd3RgS_Z9WTSwlwJWWDlEdiI?e=qkjOnh)
+- ER図
+  (https://drive.google.com/file/d/12vPC_LJlwa50aowdzxVAH_vSdHRmpsWa/view?usp=sharing)
+- テーブル定義書
+  (https://www.icloud.com/numbers/0XoGYbtKB1nHrO6oe2EOXd5lA)
+- アプリケーション詳細設計
+  (https://1drv.ms/x/s!AoI6vd3RgS_Z9WTSwlwJWWDlEdiI?e=qkjOnh)
 
 
 ## チャレンジ要素一覧
-- チャレンジ要素一覧ファイル(https://docs.google.com/spreadsheets/d/1D_xgQm7oKtzwxazBbWLrVbe-CZhGywfgv81PGAG5_ao/edit#gid=665380393)
+- チャレンジ要素一覧ファイル
+  (https://docs.google.com/spreadsheets/d/1D_xgQm7oKtzwxazBbWLrVbe-CZhGywfgv81PGAG5_ao/edit#gid=665380393)
 
 ## 開発環境
 - OS：Mac
@@ -39,4 +43,5 @@
 - IDE：Cloud9
 
 ## 使用素材
-- NASA(https://www.nasa.gov/image-feature/goddard/potw627-active-regions-galore.html)
+- NASA
+  (https://www.nasa.gov/image-feature/goddard/potw627-active-regions-galore.html)
