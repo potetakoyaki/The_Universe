@@ -1,0 +1,2 @@
+class PostCommetn < ApplicationRecord
+end
