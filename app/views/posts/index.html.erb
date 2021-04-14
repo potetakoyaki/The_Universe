@@ -1,0 +1,30 @@
+<div class="post-container" style="max-width:100%;" id="top">
+  <div class="row post-row text-center">
+    <div class="col-3 post-left">
+      <a href="#top" class="top-link">Top</a>
+      <%= render "posts/new", posts: @post %>
+    </div>
+    <div class="col-6 post-center">
+      <div class="row-1">
+        <div class="col-12">
+          <h4>Home</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="post">
+            <%= render "posts/all", posts: @posts %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 post-right">
+      <h6>All Posters</h6>
+      <% @users.each do |users| %>
+        <%= link_to user_path(@users) do %>
+          <%= users.users_name %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

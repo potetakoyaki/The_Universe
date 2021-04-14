@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+        <%= form_with model: posts, url: posts_path do |f| %>
+          <tbody>
+            <tr>
+              <td>
+                <%= f.label :Title %><br/>
+                <%= f.text_field :title, autofocus: true, id: "text" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.label :Content %><br/>
+                <%= f.text_area :body %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.attachment_field :image, id: "postimage" %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.submit "Post" %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
