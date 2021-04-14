@@ -1,2 +1,0 @@
-class PostCommetn < ApplicationRecord
-end

@@ -3,17 +3,22 @@ Rails.application.routes.draw do
 
   #トップ画面
   root 'homes#top'
-  get 'homes/about' => 'homes#about'
 
   #デバイス
   devise_for :users
-
   #ユーザー
-  resources :user
+  resources :users
+  get "user/follow" => "user#follow"
 
   #投稿
-  resources :post
+  resources :posts
 
   #コメント
-  resources :post_comment
+  resources :post_comments
+
+  #いいね
+  resources :favorites
+
+  #フォロー
+  resources :follows
 end
