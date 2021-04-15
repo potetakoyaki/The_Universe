@@ -1,30 +1,81 @@
-<div class="post-container" style="max-width:100%;" id="top">
+<div class="container" style="max-width:100%;" id="top">
   <div class="row post-row text-center">
+    <div class="col-12 post-blank"></div>
     <div class="col-3 post-left">
       <a href="#top" class="top-link">Top</a>
       <%= render "posts/new", posts: @post %>
     </div>
-    <div class="col-6 post-center">
-      <div class="row-1">
+    <div class="col-6">
+      <div class="row post-center">
         <div class="col-12">
-          <h4>Home</h4>
+          Home
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <div id="post">
-            <%= render "posts/all", posts: @posts %>
+            <div style="text-align: left;">
+              <% @posts.reverse_each do |post| %>
+              <table class="allpost">
+                <tr>
+                  <td>
+                    <%= link_to user_path(post), style: "color:black;" do %>
+                      <%= post.user.users_name %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <%= link_to post_path(post), style: "color:black;" do %>
+                      <%= post.title %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <%= link_to post_path(post), style: "color:black;" do %>
+                      <%= post.body %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <%= link_to post_path(post) do %>
+                      <%= attachment_image_tag post, :image, size: "200x150"  %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
+                  </td>
+                  <td>
+                    <div id="favorite-<%= post.id %>">
+                      <%= render 'posts/favorite', post: post %>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-3 post-right">
-      <h6>All Posters</h6>
-      <% @users.each do |users| %>
-        <%= link_to user_path(@users) do %>
-          <%= users.users_name %>
-        <% end %>
-      <% end %>
+      <div class="row">
+        <div class="col-12">
+           <h6>All Posters</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <% @users.each do |users| %>
+            <%= link_to user_path(users) do %>
+              <%= users.users_name %>
+            <% end %>
+         <% end %>
+        </div>
     </div>
   </div>
 </div>

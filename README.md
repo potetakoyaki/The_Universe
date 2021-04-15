@@ -33,7 +33,7 @@
 
 ## チャレンジ要素一覧
 - チャレンジ要素一覧ファイル
-  (https://docs.google.com/spreadsheets/d/1D_xgQm7oKtzwxazBbWLrVbe-CZhGywfgv81PGAG5_ao/edit#gid=665380393)
+  (https://docs.google.com/spreadsheets/d/1fd0fyJJ0he0d1PCQd-bHnrp3tlACswjUxtPk9My-S3E/edit#gid=566224576)
 
 ## 開発環境
 - OS：Mac

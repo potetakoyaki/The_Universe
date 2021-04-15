@@ -1,44 +1,44 @@
 <div style="text-align: left;">
-  <% posts.reverse_each do |posts| %>
+  <% @posts.reverse_each do |post| %>
     <table class="allpost">
       <tr>
         <td>
-          <%= link_to user_path(posts) do %>
-            <%= posts.user.users_name %>
+          <%= link_to user_path(post), style: "color:black;" do %>
+            <%= post.user.users_name %>
           <% end %>
         </td>
       </tr>
       <tr>
         <td>
-          <%= link_to post_path(posts) do %>
-            <%= posts.title %>
+          <%= link_to post_path(post), style: "color:black;" do %>
+            <%= post.title %>
           <% end %>
         </td>
       </tr>
       <tr>
         <td>
-          <%= link_to post_path(posts) do %>
-            <%= posts.body %>
+          <%= link_to post_path(post), style: "color:black;" do %>
+            <%= post.body %>
           <% end %>
         </td>
       </tr>
       <tr>
         <td>
-          <%= link_to post_path(posts) do %>
-            <%= attachment_image_tag posts, :image, size: "200x150"  %>
+          <%= link_to post_path(post) do %>
+            <%= attachment_image_tag post, :image, size: "200x150"  %>
           <% end %>
         </td>
       </tr>
-      <% if posts.user == current_user %>
-        <tr>
-          <td>
-            <%= link_to "Edit", edit_post_path(posts) %>
-          </td>
-          <td>
-            <%= link_to "Delete", post_path(posts), method: :delete, remote: true %>
-          </td>
-        </tr>
-      <% end %>
+      <tr>
+        <td>
+          <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
+        </td>
+        <td>
+          <div id="favorite-<%= post.id %>">
+            <%= render 'posts/favorite', post: post %>
+          </div>
+        </td>
+      </tr>
     </table>
   <% end %>
 </div>
