@@ -20,9 +20,16 @@ class PostsController < ApplicationController
 
     #投稿編集
     def edit
+      @post.find(params[:id])
     end
 
     def update
+      @post.find(params[:id])
+      if @post.update(post_params)
+        redirect_to post_path(@post)
+      else
+        render :edit
+      end
     end
 
     #投稿削除

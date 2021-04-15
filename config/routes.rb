@@ -7,9 +7,8 @@ Rails.application.routes.draw do
   #デバイス
   devise_for :users
   #ユーザー
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update, :destroy]
   get "users/unsubscribe" => "users#unsubscribe", as: :unsubscribe
-  patch "/users/withdraw" => "users#withdraw", as: :withdraw
 
   #投稿
   resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
