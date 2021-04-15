@@ -29,16 +29,21 @@
   top: 0;
  }
 
- .post-container{
-  margin-top: 50px;
-  top: -130px;
-  display: block;
-  position: relative;
+ .header-link{
+  margin-right: 30px;
  }
 
  .post-row{
   display: flex;
-  top: 100px;
+  top: 130px;
+ }
+
+ .post-blank{
+  height:52px;
+  z-index: 800;
+  background-color: white;
+  position: fixed;
+  align-self: baseline;
  }
 
  .top-link{
@@ -52,16 +57,14 @@
 
  }
 
- .post-center{
-  height:3000px;
-  top: 130px;
- }
 
- .row-1{
+ .post-center{
   position: sticky;
   top: 130px;
+  height: 50px;
   align-self: baseline;
   z-index: 400;
+  background-color: white;
  }
 
  .post-right{
@@ -71,5 +74,9 @@
  }
 
  .allpost{
-  margin: 20px auto 50px;
+  margin: 50px auto 50px;
+ }
+
+ .post-links{
+  color:black;
  }

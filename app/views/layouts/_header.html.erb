@@ -1,18 +1,18 @@
 <header>
   <nav class="navbar navbar-expand-lg  bg-secondary text-light" style="height:80px; font-size:20px;">
     <div class="container">
-      <span>The Universe</span>
+      <%= link_to_unless_current "The Universe", posts_path,class: 'nav-link text-light' %>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
-          <li style="margin-right:30px;"><%= link_to ' All Posts',posts_path,class: 'nav-link text-light' %></li>
-          <li style="margin-right:30px;"><%= link_to ' Follow Posts', user_follow_path,class: 'nav-link text-light' %></li>
-          <li style="margin-right:30px;"><%= link_to ' My Page', user_path(current_user.id) ,class: 'nav-link text-light'%></li>
-          <li style="margin-right:30px;"><%= link_to ' Logout', destroy_user_session_path, method: :delete, class: 'nav-link text-light'%></li>
+          <li class="header-link"><%= link_to ' All Posts',posts_path,class: 'nav-link text-light' %></li>
+          <li class="header-link"><%= link_to ' Follow Posts', follow_path,class: 'nav-link text-light' %></li>
+          <li class="header-link"><%= link_to ' My Page', user_path(current_user.id) ,class: 'nav-link text-light'%></li>
+          <li class="header-link"><%= link_to ' Logout', destroy_user_session_path, method: :delete, class: 'nav-link text-light'%></li>
         <% else %>
-          <li style="margin-right:30px;"><%= link_to ' All Posts',posts_path,class: 'nav-link text-light' %></li>
-          <li style="margin-right:30px;"><%= link_to ' Sign Up', new_user_registration_path,class: 'nav-link text-light' %></li>
-          <li style="margin-right:30px;"><%= link_to ' Login', new_user_session_path ,class: 'nav-link text-light'%></li>
+          <li class="header-link"></li><%= link_to ' All Posts',posts_path,class: 'nav-link text-light' %></li>
+          <li class="header-link"><%= link_to ' Sign Up', new_user_registration_path,class: 'nav-link text-light' %></li>
+          <li class="header-link"><%= link_to ' Login', new_user_session_path ,class: 'nav-link text-light'%></li>
         <% end %>
         </ul>
       </div>

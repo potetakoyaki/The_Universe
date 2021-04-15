@@ -7,18 +7,20 @@ Rails.application.routes.draw do
   #デバイス
   devise_for :users
   #ユーザー
-  resources :users
-  get "user/follow" => "user#follow"
+  resources :users, only: [:show, :edit, :update]
+  get "users/unsubscribe" => "users#unsubscribe", as: :unsubscribe
+  patch "/users/withdraw" => "users#withdraw", as: :withdraw
 
   #投稿
-  resources :posts
-
-  #コメント
-  resources :post_comments
-
-  #いいね
-  resources :favorites
+  resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
+    #コメント
+    resources :post_comments, only: [:create, :destroy]
+    #いいね
+    resource :favorites, only: [:create, :destroy]
+  end
+  get "posts/follow" => "posts#follow", as: :follow
 
   #フォロー
   resources :follows
+
 end
