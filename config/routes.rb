@@ -17,9 +17,15 @@ Rails.application.routes.draw do
     #いいね
     resource :favorites, only: [:create, :destroy]
   end
-  get "posts/follow" => "posts#follow", as: :follow
+  get "posts/follow" => "posts#follow", as: :follower_posts
+
+  #検索
+  get '/search' => "searchs#search"
 
   #フォロー
-  resources :follows
+  post 'follow/:id' => 'follows#follow', as: 'follow'
+  post 'unfollow/:id' => 'follows#unfollow', as: 'unfollow'
+  get 'follower/:id' => 'follows#follower', as: 'follower'
+  get 'followed/:id' => 'follows#followed', as: 'followed'
 
 end

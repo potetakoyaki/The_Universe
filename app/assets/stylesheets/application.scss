@@ -61,7 +61,6 @@
  .post-center{
   position: sticky;
   top: 130px;
-  height: 50px;
   align-self: baseline;
   z-index: 400;
   background-color: white;
@@ -79,4 +78,8 @@
 
  .post-links{
   color:black;
+ }
+
+ .my-page{
+  margin:0 auto 20px;
  }

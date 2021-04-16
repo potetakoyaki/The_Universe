@@ -4,7 +4,11 @@ class PostsController < ApplicationController
     def index
       @posts = Post.all
       @post = Post.new
-      @users = User.where.not(id: current_user.id)
+      if user_signed_in?
+        @users = User.where.not(id: current_user.id)
+      else
+        @users = User.all
+      end
     end
 
     #新規投稿
@@ -43,7 +47,7 @@ class PostsController < ApplicationController
     def follow
     end
 
-    
+
     private
     def post_params
       params.require(:post).permit(:title, :body, :image)
