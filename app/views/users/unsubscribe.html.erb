@@ -1,0 +1,10 @@
+<div class="text-center unsubscribe-text">
+  <h3 class="font-weight-bold">本当に退会しますか？</h3>
+  <p class="unsubscribe-text">
+    退会すると、会員登録情報や<br>
+    これまでの<strong>投稿が全て削除</strong>されてしまいます。<br>
+    退会する場合は、「退会する」をクリックしてください。
+  </p>
+  <%= link_to '退会しない', edit_user_path(@user), class: "btn btn-sm btn-primary" %>
+  <%= link_to '退会する', user_path(@user), method: :delete, class: "btn btn-sm btn-danger" %>
+</div>

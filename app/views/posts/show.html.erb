@@ -1,0 +1,65 @@
+<div class="container" style="max-width:100%;" id="top">
+  <div class="row post-list">
+    <div class="offset-1 col-3 "><h2 class="post-list-title"><strong>Poster</strong></h2></div>
+    <div class="offset-1 col-4"><h3 class="post-list-title">Posts Detail</h3></div>
+    <div class="col-2 "><h5 class="post-list-title"><strong>All Posters</strong></h5></div>
+  </div>
+  <div class="row post-row">
+    <div class="offset-1 col-3 post-left">
+      <%= render "users/info", user: @user %>
+      <% unless current_user == @user %>
+        <% if current_user.following?(@user) %>
+          <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST, class: "btn btn-success" %>
+        <% else %>
+          <%= link_to 'フォローする', follow_path(@user.id), method: :POST, class: "btn btn-success" %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="offset-1 col-4">
+      <div class="post-datail">
+        <table>
+          <tr>
+            <td>
+              <%= @post.title %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= @post.body %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <%= attachment_image_tag @post, :image, size: "300x200" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+             <i class="far fa-comment-dots"></i><%= @post.post_comments.count %>
+            </td>
+            <td>
+              <div id="favorite-<%= @post.id %>">
+                <%= render 'posts/favorite', post: @post %>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="post-right">
+      <% @users.reverse_each do |users| %>
+        <table>
+          <tr>
+            <td>
+              <%= link_to user_path(users) ,style: "color:black;" do %>
+                @<%= users.users_name %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,12 @@
 <table class='table'>
-  <tr><%= attachment_image_tag(user, :image, size: "250x150" , fallback: "no_image.png") %></tr>
+  <tr><div class="info-image"><%= attachment_image_tag(user, :image, size: "200x130" , fallback: "no_image.png",) %></div></tr>
   <tr>
 	  <th>name</th>
 	  <th><%= user.name %></th>
+  </tr>
+  <tr>
+	  <th>user name</th>
+	  <th><%= user.users_name %></th>
   </tr>
   <tr>
 	  <th>introduction</th>

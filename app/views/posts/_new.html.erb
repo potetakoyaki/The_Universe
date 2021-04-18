@@ -1,35 +1,17 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h5>New Post</h5>
-      <table>
-        <%= form_with model: posts, url: posts_path do |f| %>
-          <tbody>
-            <tr>
-              <td>
-                <%= f.label :Title %><br/>
-                <%= f.text_field :title, autofocus: true, id: "text" %>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <%= f.label :Content %><br/>
-                <%= f.text_area :body %>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <%= f.attachment_field :image, id: "postimage" %>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <%= f.submit "Post" %>
-              </td>
-            </tr>
-          </tbody>
-        <% end %>
-      </table>
-    </div>
+<div class="js-message-errors"></div>
+<%= form_with model: posts, remote: true do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, id: "text", class: 'form-control posts_title' %>
   </div>
-</div>
+  <div class="form-group">
+    <%= f.label :opinion %>
+    <%= f.text_area :body, class: 'form-control posts_body' %>
+  </div>
+  <div class="form-group">
+    <%= f.attachment_field :image, id: "postimage" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-secondary' %>
+  </div>
+<% end %>

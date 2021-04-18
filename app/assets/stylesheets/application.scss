@@ -35,15 +35,21 @@
 
  .post-row{
   display: flex;
-  top: 130px;
+  background-color:white;
  }
 
- .post-blank{
-  height:52px;
+ .post-list{
   z-index: 800;
   background-color: white;
-  position: fixed;
+  position:  sticky;
   align-self: baseline;
+  top: 80px;
+  height: 120px;
+ }
+
+ .post-list-title{
+  margin-top: 50px;
+  margin-left: 50px;
  }
 
  .top-link{
@@ -52,28 +58,32 @@
 
  .post-left{
   position: sticky;
-  top: 130px;
   align-self: baseline;
-
+  top:230px;
  }
 
 
  .post-center{
   position: sticky;
   top: 130px;
+  padding-bottom: 50px;
   align-self: baseline;
   z-index: 400;
   background-color: white;
  }
 
- .post-right{
-  position: sticky;
-  top: 130px;
-  align-self: baseline;
+ .post-table{
+  margin-bottom:100px;
  }
 
  .allpost{
-  margin: 50px auto 50px;
+  margin-top:20px;
+ }
+
+ .post-right{
+  margin-left: 50px;
+  position:  sticky;
+  top: 220px;
  }
 
  .post-links{
@@ -82,4 +92,17 @@
 
  .my-page{
   margin:0 auto 20px;
+ }
+
+ .edit-user{
+  margin-top:70px;
+ }
+ 
+ .info-image{
+  text-align:center;
+  margin-bottom:50px;
+ }
+
+ .unsubscribe-text{
+  margin-top: 100px;
  }

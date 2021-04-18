@@ -11,6 +11,12 @@ class PostsController < ApplicationController
       end
     end
 
+    def show
+      @post = Post.find(params[:id])
+      @user = @post.user
+      @users = User.where.not(id: current_user.id)
+    end
+
     #新規投稿
     def create
       @posts = Post.all
@@ -18,7 +24,10 @@ class PostsController < ApplicationController
       @post.user_id = current_user.id
       if @post.save
       else
-        render :index
+        respond_to do |format|
+          format.html { render :new }
+          format.js { render :errors }
+        end
       end
     end
 

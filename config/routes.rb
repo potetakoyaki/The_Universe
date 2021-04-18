@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   devise_for :users
   #ユーザー
   resources :users, only: [:show, :edit, :update, :destroy]
-  get "users/unsubscribe" => "users#unsubscribe", as: :unsubscribe
+  get "users/:id/unsubscribe" => "users#unsubscribe", as: :unsubscribe
 
   #投稿
   resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
