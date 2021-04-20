@@ -15,6 +15,7 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
       @user = @post.user
       @users = User.where.not(id: current_user.id)
+      @post_comment = PostComment.new
     end
 
     #新規投稿
@@ -33,14 +34,17 @@ class PostsController < ApplicationController
 
     #投稿編集
     def edit
-      @post.find(params[:id])
+      @post = Post.find(params[:id])
+      @user = @post.user
+      @users = User.where.not(id: current_user.id)
     end
 
     def update
-      @post.find(params[:id])
+      @post= Post.find(params[:id])
       if @post.update(post_params)
         redirect_to post_path(@post)
       else
+        @post = Post.find(params[:id])
         render :edit
       end
     end

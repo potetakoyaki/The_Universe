@@ -1,19 +1,19 @@
 <table class='table'>
   <tr><div class="info-image"><%= attachment_image_tag(user, :image, size: "200x130" , fallback: "no_image.png",) %></div></tr>
   <tr>
-	  <th>name</th>
+	  <th>Name</th>
 	  <th><%= user.name %></th>
   </tr>
   <tr>
-	  <th>user name</th>
+	  <th>User Name</th>
 	  <th><%= user.users_name %></th>
   </tr>
   <tr>
-	  <th>introduction</th>
+	  <th>Introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
   <tr>
-    <td>follows</td>
+    <th>Follows</th>
     <td>
       <%= link_to follower_path(user) do %>
         <%= user.following_user.count %>
@@ -21,7 +21,7 @@
     </td>
   </tr>
   <tr>
-    <td>followers</td>
+    <th>Follower</th>
     <td>
       <%= link_to followed_path(user) do %>
         <%= user.follower_user.count %>

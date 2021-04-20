@@ -1,0 +1,39 @@
+<div class="container" style="max-width:100%;">
+  <div class="row post-list">
+    <div class="offset-1 col-3 "><h2 class="post-list-title">Poster</h2></div>
+    <div class="offset-1 col-4"><h2 class="post-list-title">Edit Post</h2></div>
+    <div class="col-2 "><h3 class="post-list-title">All Posters</h3></div>
+  </div>
+  <div class="row post-row">
+    <div class="offset-1 col-3 post-left">
+      <%= render "users/info", user: @user %>
+    </div>
+    <div class="offset-1 col-4">
+      <%= form_with model: @post do |f| %>
+      <%= render "layouts/errors", obj: @post %>
+        <div class="edit-post"><%= f.label :title %></div>
+        <div><%= f.text_field :title,class: "edit-form" %></div>
+        <div class="edit-post"><%= f.label :content %></div>
+        <div><%= f.text_area :body, class: "edit-form" %></div>
+        <div class="edit-post"><%= attachment_image_tag @post, :image, size: "300x200"  %></div>
+        <div class="edit-post"><%= f.attachment_field :image %></div>
+        <div class="edit-post"><%= f.submit "Edit",class: "btn btn-success edit-form" %></div>
+      <% end %>
+    </div>
+    <div class="col-2">
+      <div class="post-right">
+      <% @users.reverse_each do |users| %>
+        <table>
+          <tr>
+            <td>
+              <%= link_to user_path(users) ,style: "color:black;" do %>
+                @<%= users.users_name %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

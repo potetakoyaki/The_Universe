@@ -29,6 +29,7 @@
   top: 0;
  }
 
+
  .header-link{
   margin-right: 30px;
  }
@@ -44,11 +45,11 @@
   position:  sticky;
   align-self: baseline;
   top: 80px;
-  height: 120px;
+  height: 100px;
  }
 
  .post-list-title{
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 50px;
  }
 
@@ -59,13 +60,13 @@
  .post-left{
   position: sticky;
   align-self: baseline;
-  top:230px;
+  top:180px;
  }
 
 
  .post-center{
   position: sticky;
-  top: 130px;
+  top: 140px;
   padding-bottom: 50px;
   align-self: baseline;
   z-index: 400;
@@ -77,13 +78,13 @@
  }
 
  .allpost{
-  margin-top:20px;
+  margin-top: 10px;
  }
 
  .post-right{
   margin-left: 50px;
   position:  sticky;
-  top: 220px;
+  top: 180px;
  }
 
  .post-links{
@@ -95,14 +96,43 @@
  }
 
  .edit-user{
-  margin-top:70px;
+  margin-top:50px;
  }
- 
+
  .info-image{
   text-align:center;
-  margin-bottom:50px;
+  margin-bottom:20px;
  }
 
  .unsubscribe-text{
   margin-top: 100px;
+ }
+
+ .comment-field{
+  width: 70%;
+  height: 50px;
+  margin: 0 auto 20px;
+ }
+
+ .new-comment{
+  margin: 20px auto 50px;
+ }
+
+ td.img{
+  height: 200px;
+  width: 300px;
+  object-fit: contain;
+  display: inline-block;
+ }
+
+ .edit-post{
+  margin-top: 20px;
+ }
+
+ .edit-form{
+  width: 70%;
+ }
+
+ #error_explanation{
+  color:red;
  }

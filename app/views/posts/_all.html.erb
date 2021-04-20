@@ -29,16 +29,15 @@
       </td>
     </tr>
     <tr>
-      <td>
-        <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
-      </td>
-      <td>
-        <div id="favorite-<%= post.id %>">
+      <td style="text-align:center;">
+        <%= link_to post_path(post),class: "btn btn-success" do %>
+        Comment <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
+        <% end %>
+        <span id="favorite-<%= post.id %>" style="margin-left:20px">
           <%= render 'posts/favorite', post: post %>
-        </div>
+        </span>
       </td>
     </tr>
   </table>
 <% end %>
 
-     

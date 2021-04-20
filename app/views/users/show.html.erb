@@ -1,17 +1,21 @@
-<div class="container" style="max-width:100%;" id="top">
+<div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title"><strong>My page</strong></h2></div>
-    <div class="offset-1 col-4"><h3 class="post-list-title">My Posts</h3></div>
-    <div class="col-2 "><h5 class="post-list-title"><strong>All Posters</strong></h5></div>
+    <% if @user == current_user %>
+      <div class="offset-1 col-3 "><h2 class="post-list-title"><strong>My Page</strong></h2></div>
+    <% else %>
+      <div class="offset-1 col-3 "><h2 class="post-list-title"><strong>@<%= @user.users_name %></strong></h2></div>
+    <% end %>
+    <div class="offset-1 col-4"><h2 class="post-list-title">Posts</h2></div>
+    <div class="col-2 "><h3 class="post-list-title">All Posters</h3></div>
   </div>
   <div class="row post-row">
     <div class="offset-1 col-3 post-left">
       <%= render "users/info", user: @user %>
       <% unless current_user == @user %>
         <% if current_user.following?(@user) %>
-          <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST, class: "btn btn-success" %>
+          <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary", style: "width:100%;" %>
         <% else %>
-          <%= link_to 'フォローする', follow_path(@user.id), method: :POST, class: "btn btn-success" %>
+          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-primary",style: "width:100%;" %>
         <% end %>
       <% end %>
     </div>
@@ -49,14 +53,14 @@
                     <% end %>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
-                  </td>
-                  <td>
-                    <div id="favorite-<%= post.id %>">
+                <tr style="margin-top:20px">
+                  <td style="text-align:center;">
+                    <%= link_to post_path(post),class: "btn btn-success" do %>
+                      Comment <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
+                    <% end %>
+                    <span id="favorite-<%= post.id %>" style="margin-left:20px">
                       <%= render 'posts/favorite', post: post %>
-                    </div>
+                    </span>
                   </td>
                 </tr>
               </table>

@@ -1,49 +1,71 @@
-<div class="container" style="max-width:100%;" id="top">
+<div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title"><strong>Poster</strong></h2></div>
-    <div class="offset-1 col-4"><h3 class="post-list-title">Posts Detail</h3></div>
-    <div class="col-2 "><h5 class="post-list-title"><strong>All Posters</strong></h5></div>
+    <div class="offset-1 col-3 "><h2 class="post-list-title">Poster</h2></div>
+    <div class="offset-1 col-4"><h2 class="post-list-title">Posts Detail</h2></div>
+    <div class="col-2 "><h3 class="post-list-title">All Posters</h3></div>
   </div>
   <div class="row post-row">
     <div class="offset-1 col-3 post-left">
       <%= render "users/info", user: @user %>
       <% unless current_user == @user %>
         <% if current_user.following?(@user) %>
-          <%= link_to 'フォロー外す', unfollow_path(@user.id), method: :POST, class: "btn btn-success" %>
+          <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary", style: "width:100%;" %>
         <% else %>
-          <%= link_to 'フォローする', follow_path(@user.id), method: :POST, class: "btn btn-success" %>
+          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-primary",style: "width:100%;" %>
         <% end %>
       <% end %>
     </div>
     <div class="offset-1 col-4">
-      <div class="post-datail">
-        <table>
+      <div>
+        <div><%= @post.title %></div>
+        <div><%= @post.body %></div>
+        <div>
+          <%= attachment_image_tag @post, :image, size: "300x200" %>
+        </div>
+        <div id="favorite-<%= @post.id %>">
+          <%= render 'posts/favorite', post: @post %>
+        </div>
+        <div style="margin-top:10px;"><%= link_to "Edit", edit_post_path(@post) %></div>
+        <h2 style="margin-top:30px">Comments</h2>
+        <% @post.post_comments.each do |post_comment| %>
+        <table style="margin-top:20px">
           <tr>
+            <%= link_to user_path(post_comment.user) do %>
             <td>
-              <%= @post.title %>
+              <%= attachment_image_tag(post_comment.user, :image, size: "50x30", fallback: "no_image.png") %> @<%= post_comment.user.users_name %>
             </td>
+            <% end %>
           </tr>
           <tr>
             <td>
-              <%= @post.body %>
+              <%= post_comment.comment %>
             </td>
-          </tr>
           <tr>
             <td>
-              <%= attachment_image_tag @post, :image, size: "300x200" %>
+              <% if post_comment.user == current_user %>
+                <%= link_to "DELETE", post_post_comment_path(@post,post_comment.id), method: :delete, class: "btn btn-danger" %>
+              <% end %>
             </td>
           </tr>
-          <tr>
-            <td>
-             <i class="far fa-comment-dots"></i><%= @post.post_comments.count %>
-            </td>
-            <td>
-              <div id="favorite-<%= @post.id %>">
-                <%= render 'posts/favorite', post: @post %>
-              </div>
-            </td>
           </tr>
         </table>
+        <% end %>
+        <div class="new-comment">
+          <p>New Comment</p>
+          <%= form_with(model:[@post, @post_comment],local: true) do |f| %>
+          <% if @error_comment.present? %>
+            <div id="error_explanation">
+              <ul>
+                <% @error_comment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+            <%= f.text_field :comment, class: "comment-field" %><br/>
+            <%= f.submit "Comment", class: "btn btn-success" %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="col-2">

@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: {maximum: 20, minimum: 2}
   validates :users_name, presence: true, length: {maximum: 20, minimum: 2}, uniqueness: true
-  validates :introduction, length: {maximum: 50}
+  validates :introduction, length: {maximum: 15}
 
   def follow(user_id)
     follows.create(followed_id: user_id)
