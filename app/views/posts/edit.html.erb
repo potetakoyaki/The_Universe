@@ -17,7 +17,10 @@
         <div><%= f.text_area :body, class: "edit-form" %></div>
         <div class="edit-post"><%= attachment_image_tag @post, :image, size: "300x200"  %></div>
         <div class="edit-post"><%= f.attachment_field :image %></div>
-        <div class="edit-post"><%= f.submit "Edit",class: "btn btn-success edit-form" %></div>
+        <div class="edit-post">
+          <%= f.submit "Edit",class: "btn btn-success edit-submit" %>
+          <%= link_to "Delete", post_path(@post),method: :delete, class: "btn btn-danger" %>
+        </div>
       <% end %>
     </div>
     <div class="col-2">

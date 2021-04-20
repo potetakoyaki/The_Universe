@@ -6,7 +6,7 @@
         <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
           <li class="header-link"><%= link_to 'All Posts',posts_path,class: 'nav-link text-light' %></li>
-          <li class="header-link"><%= link_to 'Follow Posts', follower_posts_path,class: 'nav-link text-light' %></li>
+          <li class="header-link"><%= link_to 'Follow Posts', timeline_path,class: 'nav-link text-light' %></li>
           <li class="header-link"><%= link_to 'My Page', user_path(current_user.id) ,class: 'nav-link text-light'%></li>
           <li class="header-link"><%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link text-light'%></li>
         <% else %>

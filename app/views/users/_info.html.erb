@@ -2,11 +2,19 @@
   <tr><div class="info-image"><%= attachment_image_tag(user, :image, size: "200x130" , fallback: "no_image.png",) %></div></tr>
   <tr>
 	  <th>Name</th>
-	  <th><%= user.name %></th>
+	  <th>
+	    <%= link_to user_path(user) do %>
+	      <%= user.name %>
+	    <% end %>
+	  </th>
   </tr>
   <tr>
 	  <th>User Name</th>
-	  <th><%= user.users_name %></th>
+	  <th>
+	    <%= link_to user_path(user) do %>
+	      <%= user.users_name %>
+	    <% end %>
+	  </th>
   </tr>
   <tr>
 	  <th>Introduction</th>

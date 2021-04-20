@@ -54,10 +54,17 @@ class PostsController < ApplicationController
       @posts = Post.all
       @post = Post.find(params[:id])
       @post.destroy
+      redirect_to user_path(@post.user)
     end
 
     #フォロー先の投稿表示
-    def follow
+    def timeline
+      @users = User.where.not(id: current_user.id)
+      @post = Post.new(params[:id])
+      @post_all = Post.all
+      @user = User.find(current_user.id)
+      @follow_users = @user.following_user
+      @posts = @post_all.where(user_id: @follow_users).order("created_at DESC")
     end
 
 

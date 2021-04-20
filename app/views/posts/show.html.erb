@@ -25,7 +25,11 @@
         <div id="favorite-<%= @post.id %>">
           <%= render 'posts/favorite', post: @post %>
         </div>
-        <div style="margin-top:10px;"><%= link_to "Edit", edit_post_path(@post) %></div>
+        <% if @post.user == current_user %>
+        <div style="margin-top:10px;">
+          <%= link_to "Edit", edit_post_path(@post) %>
+        </div>
+        <% end %>
         <h2 style="margin-top:30px">Comments</h2>
         <% @post.post_comments.each do |post_comment| %>
         <table style="margin-top:20px">

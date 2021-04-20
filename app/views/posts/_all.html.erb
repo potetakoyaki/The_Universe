@@ -1,43 +1,33 @@
 <% @posts.reverse_each do |post| %>
-  <table class="post-table">
-    <tr>
-      <td><p>
-        <%= link_to user_path(post.user), style: "color:black;" do %>
-          @<%= post.user.users_name %>
-        <% end %>
-      </td></p>
-    </tr>
-    <tr>
-      <td>
-        <%= link_to post_path(post), style: "color:black;" do %>
-          <%= post.title %>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= link_to post_path(post), style: "color:black;" do %>
-          <%= post.body %>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= link_to post_path(post) do %>
-          <%= attachment_image_tag post, :image, size: "300x200"  %>
-        <% end %>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:center;">
-        <%= link_to post_path(post),class: "btn btn-success" do %>
+  <div class="all-post">
+    <div>
+      <%= link_to user_path(post.user), style: "color:black;" do %>
+        <%= attachment_image_tag(post.user, :image, size: "50x30", fallback: "no_image.png") %>　@<%= post.user.users_name %>
+      <% end %>
+    </div>
+    <div class="allpost">
+      <%= link_to post_path(post), style: "color:black;" do %>
+        <%= post.title %>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to post_path(post), style: "color:black;" do %>
+        <%= post.body %>
+      <% end %>
+    </div>
+    <div class="allpost">
+      <%= link_to post_path(post) do %>
+        <%= attachment_image_tag post, :image, size: "300x200"  %>
+      <% end %>
+    </div>
+    <div class="allpost">
+      <%= link_to post_path(post),class: "btn btn-success" do %>
         Comment <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
-        <% end %>
-        <span id="favorite-<%= post.id %>" style="margin-left:20px">
-          <%= render 'posts/favorite', post: post %>
-        </span>
-      </td>
-    </tr>
-  </table>
+      <% end %>
+      <span id="favorite-<%= post.id %>" style="margin-left:50px;">
+        <%= render 'posts/favorite', post: post %>
+      </span>
+    </div>
+  </div>
 <% end %>
 

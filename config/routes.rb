@@ -11,13 +11,13 @@ Rails.application.routes.draw do
   get "users/:id/unsubscribe" => "users#unsubscribe", as: :unsubscribe
 
   #投稿
+  get "posts/timeline" => "posts#timeline", as: :timeline
   resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
     #コメント
     resources :post_comments, only: [:create, :destroy]
     #いいね
     resource :favorites, only: [:create, :destroy]
   end
-  get "posts/follow" => "posts#follow", as: :follower_posts
 
   #検索
   get '/search' => "searchs#search"

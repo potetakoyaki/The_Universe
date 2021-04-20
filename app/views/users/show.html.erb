@@ -21,54 +21,37 @@
     </div>
     <div class="offset-1 col-4">
       <div class="row">
-        <div class="col-12 allpost">
-          <div id="post">
-            <% @user.posts.reverse_each do |post| %>
-              <table class="post-table">
-                <tr>
-                  <td>
-                    <%= link_to user_path(post.user), style: "color:black;" do %>
-                      @<%= post.user.users_name %>
-                    <% end %>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <%= link_to post_path(post), style: "color:black;" do %>
-                      <%= post.title %>
-                    <% end %>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <%= link_to post_path(post), style: "color:black;" do %>
-                      <%= post.body %>
-                    <% end %>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <%= link_to post_path(post) do %>
-                      <%= attachment_image_tag post, :image, size: "300x200"  %>
-                    <% end %>
-                  </td>
-                </tr>
-                <tr style="margin-top:20px">
-                  <td style="text-align:center;">
-                    <%= link_to post_path(post),class: "btn btn-success" do %>
-                      Comment <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
-                    <% end %>
-                    <span id="favorite-<%= post.id %>" style="margin-left:20px">
-                      <%= render 'posts/favorite', post: post %>
-                    </span>
-                  </td>
-                </tr>
-              </table>
-            <% end %>
+        <div class="col-12">
+          <% @user.posts.reverse_each do |post| %>
+            <div class="all-post">
+              <div class="allpost">
+                <%= link_to post_path(post), style: "color:black;" do %>
+                  <%= post.title %>
+                <% end %>
+              </div>
+              <div>
+                <%= link_to post_path(post), style: "color:black;" do %>
+                  <%= post.body %>
+                <% end %>
+              </div>
+              <div class="allpost">
+                <%= link_to post_path(post) do %>
+                  <%= attachment_image_tag post, :image, size: "300x200"  %>
+                <% end %>
+              </div>
+              <div class="allpost">
+                <%= link_to post_path(post),class: "btn btn-success" do %>
+                  Comment <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
+                <% end %>
+                <span id="favorite-<%= post.id %>" style="margin-left:50px;">
+                  <%= render 'posts/favorite', post: post %>
+                </span>
+              </div>
+            </div>
+          <% end %>
           </div>
         </div>
       </div>
-    </div>
     <div class="col-2">
       <div class="post-right">
       <% @users.reverse_each do |users| %>

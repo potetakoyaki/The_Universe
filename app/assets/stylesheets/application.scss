@@ -73,12 +73,12 @@
   background-color: white;
  }
 
- .post-table{
+ .all-post{
   margin-bottom:100px;
  }
 
  .allpost{
-  margin-top: 10px;
+  margin-top: 15px;
  }
 
  .post-right{
@@ -97,6 +97,18 @@
 
  .edit-user{
   margin-top:50px;
+ }
+ 
+  .edit-post{
+  margin-top: 10px;
+ }
+
+ .edit-form{
+  width: 70%;
+ }
+ 
+ .edit-submit{
+  margin-right: 50px;
  }
 
  .info-image{
@@ -123,14 +135,6 @@
   width: 300px;
   object-fit: contain;
   display: inline-block;
- }
-
- .edit-post{
-  margin-top: 20px;
- }
-
- .edit-form{
-  width: 70%;
  }
 
  #error_explanation{
