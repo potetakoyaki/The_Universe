@@ -5,7 +5,7 @@
         <%= attachment_image_tag(post.user, :image, size: "50x30", fallback: "no_image.png") %>　@<%= post.user.users_name %>
       <% end %>
     </div>
-    <div class="allpost">
+    <div class="posts-content">
       <%= link_to post_path(post), style: "color:black;" do %>
         <%= post.title %>
       <% end %>
@@ -15,12 +15,12 @@
         <%= post.body %>
       <% end %>
     </div>
-    <div class="allpost">
+    <div class="posts-content">
       <%= link_to post_path(post) do %>
         <%= attachment_image_tag post, :image, size: "300x200"  %>
       <% end %>
     </div>
-    <div class="allpost">
+    <div class="posts-content">
       <%= link_to post_path(post),class: "btn btn-success" do %>
         Comment <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
       <% end %>

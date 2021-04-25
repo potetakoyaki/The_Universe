@@ -1,0 +1,62 @@
+<div class="container" style="max-width:100%;">
+  <div class="row post-list">
+    <div class="offset-1 col-10 "><h2 class="post-list-title">Search Results</h2></div>
+  </div>
+  <div class="row post-row">
+    <div class="offset-1 col-10" style="margin-top:20px">
+      <% if @model == "user" %>
+      <h4>Users search for '<%= @value %>'</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Introduction</th>
+          </tr>
+        </thead>
+      <% @datas.each do |user| %>
+        <tbody>
+          <tr>
+            <th>
+              <%= attachment_image_tag(user, :profile_image, :fill, 40, 40, fallback: "no_image.png", size:'40x40') %>
+            </th>
+            <th>
+              <%= user.name %>
+            </th>
+            <th>
+              <%= user.introduction %>
+            </th>
+          </tr>
+        </tbody>
+      <% end %>
+      </table>
+      <% elsif @model == "post" %>
+      <h4>Posts search for '<%= @value %>'</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Content</th>
+          </tr>
+        </thead>
+        <% @datas.each do |post| %>
+        <tbody>
+          <tr>
+            <th>
+              <%= attachment_image_tag(post.user, :profile_image, :fill, 40, 40, fallback: "no_image.png", size:'40x40') %>
+            </th>
+            <th>
+              <%= post.title %>
+            </th>
+            <th>
+              <%= post.body %>
+            </th>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

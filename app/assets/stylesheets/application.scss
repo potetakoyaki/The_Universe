@@ -20,6 +20,12 @@
  @import 'font-awesome-sprockets';
  @import 'font-awesome';
 
+ body {
+  margin: 0;
+    display: flex;
+    flex-flow: column;
+    min-height: 100vh;
+}
 
  header{
   position: sticky;
@@ -28,6 +34,7 @@
   z-index: 500;
   top: 0;
  }
+
 
 
  .header-link{
@@ -46,6 +53,7 @@
   align-self: baseline;
   top: 80px;
   height: 100px;
+  border-bottom: double 5px black;
  }
 
  .post-list-title{
@@ -60,31 +68,27 @@
  .post-left{
   position: sticky;
   align-self: baseline;
-  top:180px;
+  top:200px;
+  margin-top:20px;
  }
 
-
- .post-center{
-  position: sticky;
-  top: 140px;
-  padding-bottom: 50px;
-  align-self: baseline;
-  z-index: 400;
-  background-color: white;
- }
-
- .all-post{
+ .home-post{
   margin-bottom:100px;
  }
 
- .allpost{
-  margin-top: 15px;
+ .all-post{
+  margin: 30px auto 70px;
+ }
+
+ .posts-content{
+  margin-top: 10px;
  }
 
  .post-right{
   margin-left: 50px;
   position:  sticky;
-  top: 180px;
+  top: 200px;
+  margin-top:20px;
  }
 
  .post-links{
@@ -98,7 +102,7 @@
  .edit-user{
   margin-top:50px;
  }
- 
+
   .edit-post{
   margin-top: 10px;
  }
@@ -106,7 +110,7 @@
  .edit-form{
   width: 70%;
  }
- 
+
  .edit-submit{
   margin-right: 50px;
  }
@@ -114,6 +118,12 @@
  .info-image{
   text-align:center;
   margin-bottom:20px;
+ }
+
+ .info-form{
+  margin-bottom: 10px;
+  width: 90%;
+  margin-top: 10px;
  }
 
  .unsubscribe-text{
@@ -140,3 +150,77 @@
  #error_explanation{
   color:red;
  }
+
+ .message-form{
+ background-color:white;
+ z-index: 800;
+ width: 100%;
+ margin-left: 400px;
+ }
+
+ .message-form-block{
+  margin-top: 20px;
+ }
+
+ .message-form-text{
+  width: 50%;
+ }
+
+
+.all-messages{
+ margin-bottom: 100px;
+ margin-bottom: 30px;
+}
+
+
+.message-submit{
+ margin-bottom: 20px;
+ width: 10%;
+ border: 8px double black;
+}
+
+
+ .dm-field{
+  height: 40px;
+  width: 30%;
+  margin-top:10px;
+ }
+
+ .dm-form{
+  position: sticky;
+  align-self: baseline;
+  top: 180px;
+  background-color: white;
+  z-index: 600;
+  height: 100px;
+  margin-bottom: 10px;
+ }
+
+ .all-messages{
+  margin-top: 30px;
+  padding: 0.25em 1em;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+  
+ }
+
+ .current_user {
+  color: white;
+  text-align: right;
+  background-color: blue;
+  width: fit-content;
+  margin: 10px 0 0 auto;
+  border-radius: 30px;
+  padding: 10px;
+}
+
+.visited_user {
+  color: white;
+  margin: 10px;
+  background-color: blue;
+  text-align: left;
+  width: fit-content;
+  margin: 10px auto 0 0;
+  border-radius:30px;
+  padding: 10px;
+}

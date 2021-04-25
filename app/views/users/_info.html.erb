@@ -9,14 +9,6 @@
 	  </th>
   </tr>
   <tr>
-	  <th>User Name</th>
-	  <th>
-	    <%= link_to user_path(user) do %>
-	      <%= user.users_name %>
-	    <% end %>
-	  </th>
-  </tr>
-  <tr>
 	  <th>Introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
@@ -37,9 +29,3 @@
     </td>
   </tr>
 </table>
-
-<div class='row'>
-  <% if current_user == user %>
-    <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
-  <% end %>
-</div>

@@ -1,18 +1,22 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title">New Post</h2></div>
-    <div class="offset-1 col-4 "><h2 class="post-list-title">Home</h2></div>
+    <div class="offset-1 col-3 "><h2 class="post-list-title">@<%= current_user.users_name %></h2></div>
+    <div class="offset-1 col-4"><h2 class="post-list-title">All Messages</h2></div>
     <div class="col-2 "><h2 class="post-list-title">All Posters</h2></div>
   </div>
   <div class="row post-row">
     <div class="offset-1 col-3 post-left">
-      <div class="js-message-errors"></div>
-      <%= render "posts/new", posts: @post %>
+      <%= render "users/info", user: current_user %>
     </div>
     <div class="offset-1 col-4">
-      <div id="post">
-        <%= render "posts/all", posts: @posts %>
-      </div>
+      <% @anotherEntries.each do |e| %>
+        <div class="all-messages">
+        <%= link_to room_path(e.room.id) do %>
+          @<%= e.user.users_name %></br>
+          <%= Message.find_by(id: e.room.message_ids.last).content %>
+        <% end %>
+        </div>
+      <% end %>
     </div>
     <div class="col-2">
       <div class="post-right">

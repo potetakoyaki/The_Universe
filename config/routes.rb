@@ -19,6 +19,10 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
   end
 
+  #DM
+  resources :messages, :only => [:create]
+  resources :rooms, :only => [:create, :show, :index]
+
   #検索
   get '/search' => "searchs#search"
 
