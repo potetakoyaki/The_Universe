@@ -1,75 +1,103 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title">@<%= @user.users_name %></h2></div>
+    <div class="offset-1 col-3 "><h3 class="post-list-title"><i class="fas fa-portrait"></i><%= @user.users_name %></h3></div>
     <div class="offset-1 col-4"><h2 class="post-list-title">Posts</h2></div>
-    <div class="col-2 "><h2 class="post-list-title">All Posters</h2></div>
+    <div class="col-2 "><h2 class="post-list-title">Posters</h2></div>
   </div>
   <div class="row post-row">
-    <div class="offset-1 col-3 post-left">
+    <div class="col-3 post-left">
       <%= render "users/info", user: @user %>
-      <% unless current_user == @user %>
-        <% if current_user.following?(@user) %>
-          <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary btn-block info-form" %>
-        <% else %>
-          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-primary btn-block info-form" %>
-        <% end %>
+    <% if user_signed_in? %>
+      <% if @user.id == current_user.id %>
+        <div>
+        <%= link_to "DM", rooms_path, class: "btn btn-dark btn-block" %>
+        </div>
+        <div>
+      　<%= link_to 'Edit',edit_user_path(current_user),class: "btn btn-secondary btn-block"%>
+      　</div>
+      <% else %>
         <% if @isRoom == true %>
-           <a href="/rooms/<%= @roomId %>#target" class="fas fa-comment btn btn-primary btn-block info-form"></a>
+        <p><a href="/rooms/<%= @roomId %>"class="btn btn-dark btn-block">DM</a></p>
         <% else %>
-          <%= form_with model: @room do |f| %>
-            <%= f.fields_for @entry do |e| %>
+          <%= form_for @room do |f| %>
+            <%= fields_for @entry do |e| %>
               <%= e.hidden_field :user_id, :value=> @user.id %>
             <% end %>
-            <%= f.submit "DM",class:"fas fa-comment btn btn-primary btn-block info-form" %>
+            <%= f.submit "DM",class: "btn btn-dark btn-block" %>
           <% end %>
         <% end %>
-      <% else %>
-        <%= link_to '',edit_user_path(current_user),class: "btn btn-secondary info-form fas fa-user-cog" %>
-        <%= link_to "DM一覧", rooms_path, class: "btn btn-primary info-form" %>
       <% end %>
+      <% unless current_user == @user %>
+        <% if current_user.following?(@user) %>
+          <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary btn-block" %>
+        <% else %>
+          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-dark btn-block" %>
+        <% end %>
+      <% end %>
+    <% end %>
     </div>
-    <div class="offset-1 col-4">
+    <div class="col-5">
+    <% if user_signed_in? %>
       <% @user.posts.reverse_each do |post| %>
+        <div class="border-block">
         <div class="all-post">
+          <div>
+            <%= attachment_image_tag(post.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+            <i class="fas fa-portrait"></i><%= post.user.users_name %>
+          </div>
           <div class="posts-content">
             <%= link_to post_path(post), style: "color:black;" do %>
-              <%= post.title %>
+              <%= post.body %>
             <% end %>
           </div>
-        <div>
-          <%= link_to post_path(post), style: "color:black;" do %>
+          <div class="posts-content text-center">
+            <%= link_to post_path(post) do %>
+              <%= attachment_image_tag post, :image, size: "350x250"  %>
+            <% end %>
+          </div>
+          <div class="posts-content">
+            <%= link_to post_path(post),class: "btn btn-light " do %>
+              <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
+            <% end %>
+            <span id="favorite-<%= post.id %>" class="text-right">
+              <%= render 'posts/favorite', post: post %>
+            </span>
+          </div>
+        </div>
+        </div>
+      <% end %>
+    <% else %>
+      <% @user.posts.reverse_each do |post| %>
+        <div class="border-block">
+        <div class="all-post">
+          <div>
+              <%= attachment_image_tag(post.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+              <i class="fas fa-portrait"></i><%= post.user.users_name %>
+          </div>
+          <div class="posts-content">
             <%= post.body %>
-          <% end %>
+          </div>
+          <div class="posts-content text-center">
+            <%= attachment_image_tag post, :image, size: "400x300"  %>
+          </div>
         </div>
-        <div class="posts-content">
-          <%= link_to post_path(post) do %>
-            <%= attachment_image_tag post, :image, size: "300x200"  %>
-          <% end %>
         </div>
-        <div class="posts-content">
-          <%= link_to post_path(post),class: "btn btn-success" do %>
-            Comment <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
-          <% end %>
-          <span id="favorite-<%= post.id %>" style="margin-left:50px;">
-            <%= render 'posts/favorite', post: post %>
-          </span>
-        </div>
-      </div>
+      <% end %>
     <% end %>
-  </div>
-    <div class="col-2">
+    </div>
+    <div class="col-3">
       <div class="post-right">
       <% @users.reverse_each do |users| %>
-        <table>
-          <tr>
-            <td>
-              <%= link_to user_path(users) ,style: "color:black;" do %>
-                @<%= users.users_name %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
+      　<div class="all-poster">
+          <h6>
+          <%= link_to user_path(users) ,style: "color:black;" do %>
+            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+            <i class="fas fa-portrait"></i><%= users.users_name %>
+          <% end %>
+          </h6>
+        </div>
       <% end %>
+      <%= paginate @users %>
       </div>
     </div>
   </div>

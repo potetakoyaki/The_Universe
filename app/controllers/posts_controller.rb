@@ -1,21 +1,26 @@
 class PostsController < ApplicationController
-
+    before_action :authenticate_user!,except: [:index,:show]
     #投稿一覧
     def index
       @posts = Post.all
       @post = Post.new
       if user_signed_in?
-        @users = User.where.not(id: current_user.id)
+        @users = User.where.not(id: current_user.id).page(params[:page]).per(10)
       else
-        @users = User.all
+        @users = User.all.page(params[:page]).per(10)
       end
     end
 
     def show
+      @room = Room.find(params[:id])
       @post = Post.find(params[:id])
       @user = @post.user
-      @users = User.where.not(id: current_user.id)
-      @post_comment = PostComment.new
+      if user_signed_in?
+        @users = User.where.not(id: current_user.id).page(params[:page]).per(10)
+        @post_comment = PostComment.new
+      else
+        @users = User.all.page(params[:page]).per(10)
+      end
     end
 
     #新規投稿
@@ -23,12 +28,9 @@ class PostsController < ApplicationController
       @posts = Post.all
       @post = Post.new(post_params)
       @post.user_id = current_user.id
-      if @post.save
-      else
-        respond_to do |format|
-          format.html { render :new }
-          format.js { render :errors }
-        end
+      unless @post.save
+        @users = User.where.not(id: current_user.id).page(params[:page]).per(10)
+        render 'error'
       end
     end
 
@@ -36,7 +38,7 @@ class PostsController < ApplicationController
     def edit
       @post = Post.find(params[:id])
       @user = @post.user
-      @users = User.where.not(id: current_user.id)
+      @users = User.where.not(id: current_user.id).page(params[:page]).per(10)
     end
 
     def update
@@ -59,7 +61,7 @@ class PostsController < ApplicationController
 
     #フォロー先の投稿表示
     def timeline
-      @users = User.where.not(id: current_user.id)
+      @users = User.where.not(id: current_user.id).page(params[:page]).per(10)
       @post = Post.new(params[:id])
       @post_all = Post.all
       @user = User.find(current_user.id)
@@ -70,6 +72,6 @@ class PostsController < ApplicationController
 
     private
     def post_params
-      params.require(:post).permit(:title, :body, :image)
+      params.require(:post).permit(:body, :image)
     end
 end

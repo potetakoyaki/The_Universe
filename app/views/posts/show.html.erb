@@ -2,89 +2,121 @@
   <div class="row post-list">
     <div class="offset-1 col-3 "><h2 class="post-list-title">Poster</h2></div>
     <div class="offset-1 col-4"><h2 class="post-list-title">Posts Detail</h2></div>
-    <div class="col-2 "><h2 class="post-list-title">All Posters</h2></div>
+    <div class="col-2 "><h2 class="post-list-title">Posters</h2></div>
   </div>
   <div class="row post-row">
     <div class="offset-1 col-3 post-left">
       <%= render "users/info", user: @user %>
+    <% if user_signed_in? %>
+      <% if @user.id == current_user.id %>
+        <%= link_to "DM", rooms_path, class: "btn btn-dark btn-block" %>
+      　<%= link_to 'Edit',edit_user_path(current_user),class: "btn btn-secondary btn-block" %>
+      <% else %>
+        <% if @isRoom == true %>
+        <p><a href="/rooms/<%= @roomId %>"class="btn btn-dark btn-block">DM</a></p>
+        <% else %>
+          <%= form_for @room do |f| %>
+            <%= fields_for @entry do |e| %>
+              <%= e.hidden_field :user_id, :value=> @user.id %>
+            <% end %>
+            <%= f.submit "DM",class: "btn btn-dark btn-block" %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% unless current_user == @user %>
         <% if current_user.following?(@user) %>
-          <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary", style: "width:100%;" %>
+          <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary btn-block",style:"margin-top:30px" %>
         <% else %>
-          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-primary",style: "width:100%;" %>
+          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-black btn-block",style:"margin-top:30px" %>
         <% end %>
       <% end %>
+    <% end %>
     </div>
-    <div class="offset-1 col-4">
-      <div>
-        <div><%= @post.title %></div>
-        <div><%= @post.body %></div>
+    <div class="col-5">
+      <div class="border-block">
+        <div class="all-post">
         <div>
-          <%= attachment_image_tag @post, :image, size: "300x200" %>
-        </div>
-        <div id="favorite-<%= @post.id %>">
-          <%= render 'posts/favorite', post: @post %>
-        </div>
-        <% if @post.user == current_user %>
-        <div style="margin-top:10px;">
-          <%= link_to "Edit", edit_post_path(@post) %>
-        </div>
-        <% end %>
-        <h2 style="margin-top:30px">Comments</h2>
-        <% @post.post_comments.each do |post_comment| %>
-        <table style="margin-top:20px">
-          <tr>
-            <%= link_to user_path(post_comment.user) do %>
-            <td>
-              <%= attachment_image_tag(post_comment.user, :image, size: "50x30", fallback: "no_image.png") %> @<%= post_comment.user.users_name %>
-            </td>
-            <% end %>
-          </tr>
-          <tr>
-            <td>
-              <%= post_comment.comment %>
-            </td>
-          <tr>
-            <td>
-              <% if post_comment.user == current_user %>
-                <%= link_to "DELETE", post_post_comment_path(@post,post_comment.id), method: :delete, class: "btn btn-danger" %>
+          <%= link_to user_path(@post.user), style: "color:black;" do %>
+            <%= attachment_image_tag(@post.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+             <i class="fas fa-portrait"></i><%= @post.user.users_name %>
+          <% end %>
+          <% if @post.user == current_user %>
+            <%= link_to "Edit", edit_post_path(@post), class:"btn btn-light btn-sm", style:"margin-left: 70%" %>
+          <% end %>
+          <div class="posts-content"><%= @post.body %></div>
+          <div class="posts-content text-center">
+            <%= attachment_image_tag @post, :image, size: "350x250" %>
+          </div>
+          <% if user_signed_in? %>
+            <div class="posts-content">
+              <%= link_to post_path(@post),class: "btn btn-light" do %>
+                <i class="far fa-comment-dots"></i><%= @post.post_comments.count %>
               <% end %>
-            </td>
-          </tr>
-          </tr>
-        </table>
-        <% end %>
-        <div class="new-comment">
-          <p>New Comment</p>
-          <%= form_with(model:[@post, @post_comment],local: true) do |f| %>
-          <% if @error_comment.present? %>
-            <div id="error_explanation">
-              <ul>
-                <% @error_comment.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-                <% end %>
-              </ul>
+              <span id="favorite-<%= @post.id %>">
+                <%= render 'posts/favorite', post: @post %>
+              </span>
             </div>
           <% end %>
-            <%= f.text_field :comment, class: "comment-field" %><br/>
-            <%= f.submit "Comment", class: "btn btn-success" %>
-          <% end %>
         </div>
-      </div>
+        </div>
+      <% if @post.post_comments.present? %>
+        <h2 style="margin-top:30px">Comments</h2>
+        <% @post.post_comments.each do |post_comment| %>
+          <table class='table table-borderless' style="margin-top:20px">
+            <tr>
+            <%= link_to user_path(post_comment.user) do %>
+              <td>
+                <%= attachment_image_tag(post_comment.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+                <i class="fas fa-portrait"></i><%= post_comment.user.users_name %>
+              </td>
+            <% end %>
+            </tr>
+            <tr>
+              <td>
+                <%= post_comment.comment %>
+              </td>
+              <td>
+                <% if post_comment.user == current_user %>
+                  <%= link_to "DELETE", post_post_comment_path(@post,post_comment.id), method: :delete, class: "btn btn-danger btn-sm" %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      <% end %>
     </div>
-    <div class="col-2">
+      <% if user_signed_in? %>
+      <div class="new-comment">
+        <h3>New Comment</h3>
+        <%= form_with(model:[@post, @post_comment],local: true) do |f| %>
+        <% if @error_comment.present? %>
+          <div id="error_explanation">
+            <ul>
+              <% @error_comment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+          <%= f.text_field :comment, class: "form-control" %><br/>
+          <%= f.submit "Comment", class: "btn btn-light" %>
+        <% end %>
+      </div>
+      <% end %>
+      </div>
+    <div class="col-3">
       <div class="post-right">
       <% @users.reverse_each do |users| %>
-        <table>
-          <tr>
-            <td>
-              <%= link_to user_path(users) ,style: "color:black;" do %>
-                @<%= users.users_name %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
+      　<div class="all-poster">
+          <h6>
+          <%= link_to user_path(users) ,style: "color:black;" do %>
+            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+            <i class="fas fa-portrait"></i><%= users.users_name %>
+          <% end %>
+          </h6>
+        </div>
       <% end %>
+      <%= paginate @users %>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 class SearchsController < ApplicationController
+   before_action :authenticate_user!
   def search
     @model = params["search"]["model"]
     @value = params["search"]["value"]
@@ -9,33 +10,17 @@ class SearchsController < ApplicationController
   private
   def match(model, value)
     if model == 'user'
-      User.where(name: value)
+      User.where(users_name: value)
     elsif model == 'post'
-      Post.where(title: value)
-    end
-  end
-
-  def forward(model, value)
-    if model == 'User'
-      User.where("name LIKE ?", "#{value}%")
-    elsif model == 'post'
-      Post.where("title LIKE ?", "#{value}%")
-    end
-  end
-
-  def backward(model, value)
-    if model == 'user'
-      User.where("name LIKE ?", "%#{value}")
-    elsif model == 'post'
-      Post.where("title LIKE ?", "%#{value}")
+      Post.where(body: value)
     end
   end
 
   def partical(model, value)
     if model == 'user'
-      User.where("name LIKE ?", "%#{value}%")
+      User.where("users_name LIKE ?", "%#{value}%")
     elsif model == 'post'
-      Post.where("title LIKE ?", "%#{value}%")
+      Post.where("body LIKE ?", "%#{value}%")
     end
   end
 
@@ -43,10 +28,6 @@ class SearchsController < ApplicationController
     case how
     when 'match'
       match(model, value)
-    when 'forward'
-      forward(model, value)
-    when 'backward'
-      backward(model, value)
     when 'partical'
       partical(model, value)
     end

@@ -5,37 +5,35 @@
     <div class="col-2 "><h2 class="post-list-title">All Posters</h2></div>
   </div>
   <div class="row post-row">
-    <div class="offset-1 col-3 post-left">
+    <div class="col-3 post-left">
       <%= render "users/info", user: @user %>
     </div>
-    <div class="offset-1 col-4">
+    <div class="col-5">
+      <div class="border-block">
       <%= form_with model: @post do |f| %>
-      <%= render "layouts/errors", obj: @post %>
-        <div class="edit-post"><%= f.label :title %></div>
-        <div><%= f.text_field :title,class: "edit-form" %></div>
-        <div class="edit-post"><%= f.label :content %></div>
-        <div><%= f.text_area :body, class: "edit-form" %></div>
-        <div class="edit-post"><%= attachment_image_tag @post, :image, size: "300x200"  %></div>
-        <div class="edit-post"><%= f.attachment_field :image %></div>
-        <div class="edit-post">
-          <%= f.submit "Edit",class: "btn btn-success edit-submit" %>
-          <%= link_to "Delete", post_path(@post),method: :delete, class: "btn btn-danger" %>
-        </div>
+      <%= render "layouts/errors", model: @post %>
+        <div><h3><%= f.label :Post %></h3></div>
+        <div><%= f.text_area :body,class: "form-control" %></div>
+        <div class="form-group text-center"><%= attachment_image_tag @post, :image, size: "300x200" %></div>
+        <div class="form-group"><%= f.attachment_field :image %></div>
+      </div>
+        <div class="form-group"><%= f.submit "Update",class: "btn btn-dark btn-block" %></div>
+        <div><%= link_to "Delete", post_path(@post),method: :delete, class: "btn btn-danger btn-block" %></div>
       <% end %>
     </div>
-    <div class="col-2">
+    <div class="col-3">
       <div class="post-right">
       <% @users.reverse_each do |users| %>
-        <table>
-          <tr>
-            <td>
-              <%= link_to user_path(users) ,style: "color:black;" do %>
-                @<%= users.users_name %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
+      　<div class="all-poster">
+          <h6>
+          <%= link_to user_path(users) ,style: "color:black;" do %>
+            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+            <i class="fas fa-portrait"></i><%= users.users_name %>
+          <% end %>
+          </h6>
+        </div>
       <% end %>
+      <%= paginate @users %>
       </div>
     </div>
   </div>

@@ -2,32 +2,30 @@
   <div class="row post-list">
     <div class="offset-1 col-3 "><h2 class="post-list-title">New Post</h2></div>
     <div class="offset-1 col-4 "><h2 class="post-list-title">Home</h2></div>
-    <div class="col-2 "><h3 class="post-list-title">All Posters</h3></div>
+    <div class="col-2 "><h2 class="post-list-title">Posters</h2></div>
   </div>
   <div class="row post-row">
-    <div class="offset-1 col-3 post-left">
+    <div class="offset-sm-1 col-sm-3 post-left">
       <% if user_signed_in? %>
-        <div class="js-message-errors"></div>
+        <div id="comments_error">
+         <%= render 'layouts/errors', model: @post  %>
+         </div>
         <%= render "posts/new", posts: @post %>
       <% else %>
         <div class="container">
           <div class="row">
-            <div class='mx-auto col-12'>
-              <h3 style="margin-top:50px;"><strong>Welcome!!</strong></h3>
-              <p>
-                <strong>The Universeとは</strong></br>
-                宇宙好きのための</br>
-                集いの場です！</br>
-                宇宙・天体について<br/>
-                自由に投稿・共有を<br/>
-                行えます！<br/>
-              </p>
-              <div class="btn-wrapper col-10 mx-auto">
+            <div class='col-10'>
+              <h3 class="top-list"><strong>Welcome!!</strong></h3>
+              <h2 class="top-list"><strong><i class="fas fa-star-and-crescent"></i>The Universe</strong></h2>
+              <p class="top-list">People who get together and like the universe</p>
+              <p class="top-list">You can freely talk about the universe here.</p>
+              <p class="top-list">Let's make the universe friends ! <i class="fas fa-users"></i></p>
+              <div class="btn-wrapper col-10">
                 <div class="row">
-                  <%= link_to 'Log in', new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
+                  <%= link_to 'Log in', new_user_session_path, class: "btn btn-light btn-sm btn-block mb-3 sign_in" %>
                 </div>
                 <div class="row">
-                  <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+                  <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-dark btn-sm btn-block sign_up" %>
                 </div>
               </div>
             </div>
@@ -35,24 +33,24 @@
         </div>
       <% end %>
     </div>
-    <div class="offset-1 col-4">
+    <div class="col-5">
       <div id="post">
         <%= render "posts/all", posts: @posts %>
       </div>
     </div>
-    <div class="col-2">
+    <div class=" col-3">
       <div class="post-right">
       <% @users.reverse_each do |users| %>
-        <table>
-          <tr>
-            <td>
-              <%= link_to user_path(users) ,style: "color:black;" do %>
-                @<%= users.users_name %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
+      　<div class="all-poster">
+          <h6>
+          <%= link_to user_path(users) ,style: "color:black;" do %>
+            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+            <i class="fas fa-portrait"></i><%= users.users_name %>
+          <% end %>
+          </h6>
+        </div>
       <% end %>
+      <%= paginate @users %>
       </div>
     </div>
   </div>

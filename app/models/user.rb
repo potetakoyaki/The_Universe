@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :follower_user, through: :followed, source: :follows
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
-  has_many :rooms, dependent: :destroy
 
   validates :name, presence: true, length: {maximum: 20, minimum: 2}
   validates :users_name, presence: true, length: {maximum: 20, minimum: 2}, uniqueness: true

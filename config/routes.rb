@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   #トップ画面
-  root 'homes#top'
+  root 'posts#index'
 
   #デバイス
   devise_for :users

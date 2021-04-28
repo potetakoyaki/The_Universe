@@ -1,17 +1,14 @@
-<div class="js-message-errors"></div>
-<%= form_with model: posts, remote: true do |f| %>
-  <div class="form-group">
-    <strong><%= f.label :title %></strong>
-    <%= f.text_field :title, id: "text", class: 'form-control posts_title' %>
-  </div>
-  <div class="form-group">
-     <strong><%= f.label :opinion %></strong>
-    <%= f.text_area :body, class: 'form-control posts_body' %>
-  </div>
-  <div class="form-group">
-    <%= f.attachment_field :image, id: "postimage" %>
-  </div>
-  <div class="form-group">
-    <%= f.submit class: 'btn btn-info' %>
-  </div>
-<% end %>
+<div>
+  <%= form_with model: posts, remote: true do |f| %>
+    <div class="form-group">
+       <h3><strong><%= f.label :Post %></strong></h3>
+      <%= f.text_area :body, class: 'form-control posts_body' %>
+    </div>
+    <div class="form-group">
+      <%= f.attachment_field :image, id: "postimage" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-dark btn-block' %>
+    </div>
+  <% end %>
+</div>

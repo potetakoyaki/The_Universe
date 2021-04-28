@@ -1,6 +1,6 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title">@<%= current_user.users_name %></h2></div>
+    <div class="offset-1 col-3 "><h3 class="post-list-title"><i class="fas fa-portrait"></i><%= current_user.users_name %></h3></div>
     <div class="offset-1 col-4"><h2 class="post-list-title">All Messages</h2></div>
     <div class="col-2 "><h2 class="post-list-title">All Posters</h2></div>
   </div>
@@ -9,29 +9,33 @@
       <%= render "users/info", user: current_user %>
     </div>
     <div class="offset-1 col-4">
+      <% if @anotherEntries.present? %>
       <% @anotherEntries.each do |e| %>
-        <div class="all-messages">
-        <%= link_to room_path(e.room.id) do %>
-          @<%= e.user.users_name %></br>
-          <%= Message.find_by(id: e.room.message_ids.last).content %>
+        <%= link_to room_path(e.room.id,anchor: "target"),style:"color:black;" do %>
+          <div class="dm-all">
+            <h4>
+              <%= attachment_image_tag(e.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+              <i class="fas fa-portrait"></i><%= e.user.users_name %></br>
+            </h4>
+          <%= paginate @users %>
+          </div>
         <% end %>
-        </div>
+      <% end %>
       <% end %>
     </div>
-    <div class="col-2">
+    <div class="col-3">
       <div class="post-right">
       <% @users.reverse_each do |users| %>
-        <table>
-          <tr>
-            <td>
-              <%= link_to user_path(users) ,style: "color:black;" do %>
-                @<%= users.users_name %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
+      　<div class="all-poster">
+          <h6>
+          <%= link_to user_path(users) ,style: "color:black;" do %>
+            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+            <i class="fas fa-portrait"></i><%= users.users_name %>
+          <% end %>
+          </h6>
+        </div>
       <% end %>
+      <%= paginate @users %>
       </div>
-    </div>
   </div>
 </div>

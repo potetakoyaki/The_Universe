@@ -2,31 +2,31 @@
   <div class="row post-list">
     <div class="offset-1 col-3 "><h2 class="post-list-title">New Post</h2></div>
     <div class="offset-1 col-4 "><h2 class="post-list-title">Home</h2></div>
-    <div class="col-2 "><h2 class="post-list-title">All Posters</h2></div>
+    <div class="col-2 "><h2 class="post-list-title">Posters</h2></div>
   </div>
   <div class="row post-row">
     <div class="offset-1 col-3 post-left">
       <div class="js-message-errors"></div>
       <%= render "posts/new", posts: @post %>
     </div>
-    <div class="offset-1 col-4">
+    <div class="col-5">
       <div id="post">
         <%= render "posts/all", posts: @posts %>
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-3">
       <div class="post-right">
       <% @users.reverse_each do |users| %>
-        <table>
-          <tr>
-            <td>
-              <%= link_to user_path(users) ,style: "color:black;" do %>
-                @<%= users.users_name %>
-              <% end %>
-            </td>
-          </tr>
-        </table>
+      　<div class="all-poster">
+          <h6>
+          <%= link_to user_path(users) ,style: "color:black;" do %>
+            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+            <i class="fas fa-portrait"></i><%= users.users_name %>
+          <% end %>
+          </h6>
+        </div>
       <% end %>
+      <%= paginate @users %>
       </div>
     </div>
   </div>

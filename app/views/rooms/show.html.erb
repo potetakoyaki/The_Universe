@@ -6,24 +6,28 @@
       <% end %>
       </div>
     <div class="offset-1 col-6">
-      <h2 class="post-list-title">
+      <h3 class="post-list-title">
         <% @entry.each do |e| %>
-          <strong><a href="/users/<%= e.user.id %>">@<%= e.user.users_name%></a></strong><small>さんとメッセージ中</small>
+          <strong><a href="/users/<%= e.user.id %>" style="color:black;"><i class="fas fa-portrait"></i><%= e.user.users_name%></a></strong>
+          <small>さんとメッセージ中</small>
         <% end %>
-      </h2>
+      </h3>
     </div>
   </div>
   <div class="row post-row">
     <div class="offset-1 col-3 post-left">
+      <% if @anotherEntries.present? %>
       <% @anotherEntries.each do |e| %>
-        <%= link_to room_path(e.room.id,anchor: "target") do %>
+        <%= link_to room_path(e.room.id,anchor: "target"),style:"color:black;" do %>
           <div class="dm-all">
-            <h3>
-              @<%= e.user.users_name %></br>
-              <%= Message.find_by(id: e.room.message_ids.last).content %>
-            </h3>
+            <h4>
+                <%= attachment_image_tag(e.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+                <i class="fas fa-portrait"></i><%= e.user.users_name %></br>
+            </h4>
+          <%= paginate @users %>
           </div>
         <% end %>
+      <% end %>
       <% end %>
     </div>
     <div class="offset-1 col-6">
@@ -35,12 +39,12 @@
               <% if m.user_id == current_user.id %>
                 <div class="current_user">
                   <strong class="current_user"><%= m.content %></strong>
-                    <small class="current_user">@<%= m.user.users_name %></small>
+                    <small class="current_user"><i class="fas fa-portrait"></i><%= m.user.users_name %></small>
                 </div>
               <% else %>
                 <div class="visited_user">
                   <strong class="visited_user"><%= m.content %></strong>
-                  <small class="visited_user">@<%= m.user.users_name %></small>
+                  <small class="visited_user"><i class="fas fa-portrait"></i><%= m.user.users_name %></small>
                 </div>
               <% end %>
             <% end %>

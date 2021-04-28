@@ -1,5 +1,5 @@
 class PostCommentsController < ApplicationController
-
+   before_action :authenticate_user!
   def create
     post = Post.find(params[:post_id])
     comment = current_user.post_comments.new(post_comment_params)
@@ -11,7 +11,7 @@ class PostCommentsController < ApplicationController
       @post = Post.find(params[:post_id])
       @post_comment = PostComment.new
       @user = @post.user
-      @users = User.where.not(id: current_user.id)
+      @users = User.where.not(id: current_user.id).page(params[:page]).per(10)
       render "posts/show"
     end
   end
