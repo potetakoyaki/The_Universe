@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   #トップ画面
-  root 'homes#top'
+  root 'posts#index'
 
   #デバイス
   devise_for :users
@@ -11,13 +11,17 @@ Rails.application.routes.draw do
   get "users/:id/unsubscribe" => "users#unsubscribe", as: :unsubscribe
 
   #投稿
+  get "posts/timeline" => "posts#timeline", as: :timeline
   resources :posts, only: [:index, :create, :show, :edit, :update, :destroy] do
     #コメント
     resources :post_comments, only: [:create, :destroy]
     #いいね
     resource :favorites, only: [:create, :destroy]
   end
-  get "posts/follow" => "posts#follow", as: :follower_posts
+
+  #DM
+  resources :messages, :only => [:create]
+  resources :rooms, :only => [:create, :show, :index]
 
   #検索
   get '/search' => "searchs#search"

@@ -1,0 +1,89 @@
+<div class="container" style="max-width:100%;">
+  <div class="row post-list">
+    <div class="offset-1 col-10 "><h2 class="post-list-title">Search Results '<%= @value %>'</h2></div>
+  </div>
+  <div class="row post-row">
+    <div class="col-3 post-left">
+      <%= render "users/info", user: current_user %>
+    <% if user_signed_in? %>
+      <% if  current_user %>
+        <div>
+        <%= link_to "DM一覧", rooms_path, class: "btn btn-dark btn-block " %>
+        </div>
+        <div>
+      　<%= link_to '編集',edit_user_path(current_user),class: "btn btn-secondary btn-block" %>
+        </div>
+      <% end %>
+    <% end %>
+    </div>
+    <div class="offset-1 col-7">
+      <% if @model == "user" %>
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th style="width:1%;"><h3>Poster</h3></th>
+            <th style="width:5%;"></th>
+            <th style="width:5%;"></th>
+            <th style="width:1%;"></th>
+          </tr>
+        </thead>
+      <% @datas.each do |user| %>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(user.id),style:"color:black;" do %>
+                <%= attachment_image_tag(user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to user_path(user.id),style:"color:black;" do %>
+                <h4><%= user.name %></h4>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to user_path(user.id),style:"color:black;" do %>
+                <h4><i class="fas fa-portrait"></i><%= user.users_name %></h4>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to user_path(user.id),style:"color:black;" do %>
+                <h4><%= user.introduction %></h4>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+      </table>
+      <% elsif @model == "post" %>
+      <table class="table table table-borderless">
+        <thead>
+          <tr>
+            <th><h3>Post</h3></th>
+          </tr>
+        </thead>
+        <% @datas.each do |post| %>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(post.id),style:"color:black;" do %>
+                <h4><%= attachment_image_tag(post.user, :image, size: "60x30", fallback: "no_image.png", size:'40x40') %></h4>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to user_path(post.id),style:"color:black;" do %>
+                <h4><i class="fas fa-portrait"></i><%= post.user.users_name %></h4>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to user_path(post.id),style:"color:black;" do %>
+                <h4><%= post.body %></h4>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+      <% end %>
+    </div>
+  </div>
+</div>

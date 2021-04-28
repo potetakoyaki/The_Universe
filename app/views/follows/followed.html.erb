@@ -1,0 +1,51 @@
+<div class="container" style="max-width:100%;">
+  <div class="row post-list">
+    <div class="offset-1 col-3 "><h2 class="post-list-title"><i class="fas fa-portrait"></i><%= @user.users_name %></h2></div>
+    <div class="offset-1 col-7"><h2 class="post-list-title">Follower</h2></div>
+  </div>
+  <div class="row post-row">
+    <div class="offset-1 col-3 post-left">
+      <%= render "users/info", user: @user %>
+      <% if user_signed_in? %>
+        <% unless current_user == @user %>
+          <% if current_user.following?(@user) %>
+            <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary btn-block" %>
+          <% else %>
+            <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-dark btn-block" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="offset-1 col-7">
+      <% @users.each do |users| %>
+      <%= link_to user_path(users) do %>
+        <table class="table  table-borderless">
+          <tr>
+            <th style="width: 5%"></th>
+            <th style="width: 10%"></th>
+            <th style="width: 10%"></th>
+            <th style="width: 10%"></th>
+          </tr>
+          <tr>
+            <td><%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %></td>
+            <td><i class="fas fa-portrait"></i><%= users.users_name %></td>
+            <td>Post<i class="fas fa-rocket"></i><%= users.posts.count %></td>
+            <td>
+              <% if user_signed_in? %>
+                <% unless current_user == users %>
+                  <% if current_user.following?(users) %>
+                    <%= link_to 'Unfollow', unfollow_path(users.id), method: :POST, class: "btn btn-secondary  info-form" %>
+                  <% else %>
+                    <%= link_to 'Follow', follow_path(users.id), method: :POST, class: "btn btn-dark  info-form" %>
+                  <% end %>
+                <% else %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
