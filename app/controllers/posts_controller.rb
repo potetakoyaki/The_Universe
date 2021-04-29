@@ -13,6 +13,14 @@ class PostsController < ApplicationController
 
     def show
       @room = Room.find(params[:id])
+    if Entry.where(:user_id => current_user.id, :room_id => @room.id).present?
+      @messages = @room.messages
+      @message = Message.new
+      @entries = @room.entries
+      @entry = @entries.where.not(:user_id => current_user.id)
+    else
+      redirect_back(fallback_location: root_path)
+    end
       @post = Post.find(params[:id])
       @user = @post.user
       if user_signed_in?

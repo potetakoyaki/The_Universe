@@ -15,8 +15,8 @@
         <% if @isRoom == true %>
         <p><a href="/rooms/<%= @roomId %>"class="btn btn-dark btn-block">DM</a></p>
         <% else %>
-          <%= form_for @room do |f| %>
-            <%= fields_for @entry do |e| %>
+          <%= form_with model: @room do |f| %>
+            <%= f.fields_for @entry do |e| %>
               <%= e.hidden_field :user_id, :value=> @user.id %>
             <% end %>
             <%= f.submit "DM",class: "btn btn-dark btn-block" %>
@@ -27,7 +27,7 @@
         <% if current_user.following?(@user) %>
           <%= link_to 'Unfollow', unfollow_path(@user.id), method: :POST, class: "btn btn-secondary btn-block",style:"margin-top:30px" %>
         <% else %>
-          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-black btn-block",style:"margin-top:30px" %>
+          <%= link_to 'Follow', follow_path(@user.id), method: :POST, class: "btn btn-dark btn-block",style:"margin-top:30px" %>
         <% end %>
       <% end %>
     <% end %>
