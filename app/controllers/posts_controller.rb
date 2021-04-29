@@ -38,7 +38,7 @@ class PostsController < ApplicationController
         @entry = Entry.new
       end
     end
-  end
+    end
 
     #新規投稿
     def create
