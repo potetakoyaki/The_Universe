@@ -1,8 +1,7 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h3 class="post-list-title"><i class="fas fa-portrait"></i><%= @user.users_name %></h3></div>
-    <div class="offset-1 col-4"><h2 class="post-list-title">Posts</h2></div>
-    <div class="col-2 "><h2 class="post-list-title">Posters</h2></div>
+    <div class="offset-1 col-3 "><h3 class="post-list-left"><i class="fas fa-portrait"></i> <%= @user.users_name %></h3></div>
+    <div class="col-4"><h2 class="post-list-title">Posts</h2></div>
   </div>
   <div class="row post-row">
     <div class="col-3 post-left">
@@ -17,13 +16,13 @@
       　</div>
       <% else %>
         <% if @isRoom == true %>
-        <p><a href="/rooms/<%= @roomId %>"class="btn btn-dark btn-block">DM</a></p>
+        <p><%= link_to "DM", room_path(@roomId, anchor: "target"), class: "btn btn-dark btn-block" %></p>
         <% else %>
           <%= form_for @room do |f| %>
             <%= fields_for @entry do |e| %>
               <%= e.hidden_field :user_id, :value=> @user.id %>
             <% end %>
-            <%= f.submit "DM",class: "btn btn-dark btn-block",style:"margin-bottom:22px;" %>
+            <%= f.submit "DM",class: "btn btn-dark btn-block",style:"margin-bottom:20px;" %>
           <% end %>
         <% end %>
       <% end %>
@@ -36,69 +35,51 @@
       <% end %>
     <% end %>
     </div>
-    <div class="col-5">
-    <% if user_signed_in? %>
+    <div class="col-8 post-center">
+    <div class="row user-row">
+    <% if @user.posts.present? %>
       <% @user.posts.reverse_each do |post| %>
-        <div class="border-block">
-        <div class="all-post">
-          <div>
-            <%= attachment_image_tag(post.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-            <i class="fas fa-portrait"></i><%= post.user.users_name %>
+      <div class="col-lg-4 mb-4">
+      <div style="margin-top:30px;">
+        <div class="card">
+          <div class="card-img-top">
+            <%= attachment_image_tag post, :image, class: "post-img" %>
           </div>
-          <div class="posts-content">
-            <%= link_to post_path(post), style: "color:black;" do %>
-              <%= post.body %>
+          <div class="card-body">
+            <% post.tags.each do |tag| %>
+              <span class="label"><%= tag.name %></span>
             <% end %>
+            <div style="margin:20px auto 20px">
+              <%= link_to user_path(post.user), style: "color:black;" do %>
+                <%= attachment_image_tag(post.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                <i class="fas fa-portrait"></i><%= post.user.users_name %>
+            <% end %>
+            </div>
+            <p class="card-text"><%= post.body %></p>
+            <%= link_to "Read More→",  post_path(post), class: "btn btn-dark" %>
           </div>
-          <div class="posts-content text-center">
-            <%= link_to post_path(post) do %>
-              <%= attachment_image_tag post, :image, size: "350x250"  %>
-            <% end %>
-          </div>
-          <div class="posts-content">
-            <%= link_to post_path(post),class: "btn btn-light " do %>
-              <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
-            <% end %>
-            <span id="favorite-<%= post.id %>" class="text-right">
+          <div class="card-footer text-muted">
+            Posted on <%= post.created_at %>
+            <span>
+              <%= link_to post_path(post),class: "btn" do %>
+                <i class="far fa-comment-dots"></i><%= post.post_comments.count %>
+              <% end %>
+            </span>
+            <span id="favorite-<%= post.id %>" style="margin-left:3%;">
               <%= render 'posts/favorite', post: post %>
             </span>
           </div>
         </div>
-        </div>
+      </div>
+      </div>
       <% end %>
     <% else %>
-      <% @user.posts.reverse_each do |post| %>
-        <div class="border-block">
-        <div class="all-post">
-          <div>
-              <%= attachment_image_tag(post.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-              <i class="fas fa-portrait"></i><%= post.user.users_name %>
-          </div>
-          <div class="posts-content">
-            <%= post.body %>
-          </div>
-          <div class="posts-content text-center">
-            <%= attachment_image_tag post, :image, size: "350x250"  %>
-          </div>
-        </div>
-        </div>
-      <% end %>
+      <div class="no-post">
+        <h1><strong>No posts</strong></h1></br>
+        <h4>Take a look at the posts of other poster!</h4>
+      </div>
     <% end %>
     </div>
-    <div class="col-3">
-      <div class="post-right">
-      <% @users.reverse_each do |users| %>
-      　<div class="all-poster">
-          <h6>
-          <%= link_to user_path(users) ,style: "color:black;" do %>
-            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-            <i class="fas fa-portrait"></i><%= users.users_name %>
-          <% end %>
-          </h6>
-        </div>
-      <% end %>
-      <%= paginate @users %>
-      </div>
     </div>
   </div>
 </div>

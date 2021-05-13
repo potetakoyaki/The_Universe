@@ -1,8 +1,7 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title">Poster</h2></div>
-    <div class="offset-1 col-4"><h2 class="post-list-title">Posts Detail</h2></div>
-    <div class="col-2 "><h2 class="post-list-title">Posters</h2></div>
+    <div class="offset-1 col-3 "><h2 class="post-list-left">Poster</h2></div>
+    <div class="col-4"><h2 class="post-list-title">Posts Detail</h2></div>
   </div>
   <div class="row post-row">
     <div class="offset-1 col-3 post-left">
@@ -10,12 +9,12 @@
     <% if user_signed_in? %>
       <% if @user.id == current_user.id %>
         <%= link_to "DM", rooms_path, class: "btn btn-dark btn-block" %>
-      　<%= link_to 'Edit',edit_user_path(current_user),class: "btn btn-secondary btn-block" %>
+      　<%= link_to 'Edit',edit_user_path(current_user),class: "btn btn-secondary btn-block",style: "margin-top:0;" %>
       <% else %>
         <% if @isRoom == true %>
-        <p><a href="/rooms/<%= @roomId %>"class="btn btn-dark btn-block">DM</a></p>
+        <p><%= link_to "DM", room_path(@roomId, anchor: "target"), class: "btn btn-dark btn-block" %></p>
         <% else %>
-          <%= form_with model: @room do |f| %>
+          <%= form_with model: @room, url: rooms_path, local: true do |f| %>
             <%= f.fields_for @entry do |e| %>
               <%= e.hidden_field :user_id, :value=> @user.id %>
             <% end %>
@@ -32,59 +31,64 @@
       <% end %>
     <% end %>
     </div>
-    <div class="col-5">
-      <div class="border-block">
-        <div class="all-post">
-        <div>
-          <%= link_to user_path(@post.user), style: "color:black;" do %>
-            <%= attachment_image_tag(@post.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-             <i class="fas fa-portrait"></i><%= @post.user.users_name %>
-          <% end %>
-          <% if @post.user == current_user %>
-            <%= link_to "Edit", edit_post_path(@post), class:"btn btn-light btn-sm", style:"margin-left: 70%" %>
-          <% end %>
-          <div class="posts-content"><%= @post.body %></div>
-          <div class="posts-content text-center">
-            <%= attachment_image_tag @post, :image, size: "350x250" %>
+    <div class="col-7 post-center">
+      <div style="margin-top:10px;">
+        <div class="card mb-4">
+          <div class="card-img-top">
+            <%= attachment_image_tag @post, :image, style: "width:100%;" %>
           </div>
-          <% if user_signed_in? %>
-            <div class="posts-content">
-              <%= link_to post_path(@post),class: "btn btn-light" do %>
-                <i class="far fa-comment-dots"></i><%= @post.post_comments.count %>
+          <div class="card-body">
+            <% @post.tags.each do |tag| %>
+              <span class="label"><%= tag.name %></span>
+            <% end %>
+            <div style="margin:20px auto 20px">
+              <%= link_to user_path(@post.user), style: "color:black;" do %>
+                <%= attachment_image_tag(@post.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                <i class="fas fa-portrait"></i><%= @post.user.users_name %>
               <% end %>
-              <span id="favorite-<%= @post.id %>">
-                <%= render 'posts/favorite', post: @post %>
+            </div>
+            <p class="card-text"><%= @post.body %></p>
+          </div>
+          <div class="card-footer text-muted">
+            Posted on <%= @post.created_at %>
+            <span style="margin-left:5%;">
+              <i class="far fa-comment-dots"></i><%= @post.post_comments.count %>
+            </span>
+            <span id="favorite-<%= @post.id %>" style="margin-left:3%;">
+              <%= render 'posts/favorite', post: @post %>
+            </span>
+            <% if @post.user == current_user %>
+              <%= link_to "Edit", edit_post_path(@post), class:"btn btn-dark btn-sm", style:"margin-left: 5%" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% if @post.post_comments.present? %>
+        <h3 style="margin-top:30px">Comment</h3>
+        <% @post.post_comments.each do |post_comment| %>
+        <div style="margin-top:20px;">
+          <div class="card mb-4">
+            <div class="card-body">
+              <%= link_to user_path(post_comment.user), style: "color:black;" do %>
+                <%= attachment_image_tag(post_comment.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                <i class="fas fa-portrait"></i><%= post_comment.user.users_name %>
+              <% end %>
+              <div style="margin:20px auto 20px">
+                <%= post_comment.comment %>
+              </div>
+            </div>
+            <div class="card-footer text-muted">
+              Commented on <%= post_comment.created_at %>
+              <span style="margin-left:5%;">
+              <% if post_comment.user == current_user %>
+                <%= link_to "DELETE", post_post_comment_path(@post,post_comment.id), method: :delete, class: "btn btn-danger btn-sm" %>
+              <% end %>
               </span>
             </div>
-          <% end %>
+          </div>
         </div>
-        </div>
-      <% if @post.post_comments.present? %>
-        <h2 style="margin-top:30px">Comments</h2>
-        <% @post.post_comments.each do |post_comment| %>
-          <table class='table table-borderless' style="margin-top:20px">
-            <tr>
-            <%= link_to user_path(post_comment.user) do %>
-              <td>
-                <%= attachment_image_tag(post_comment.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-                <i class="fas fa-portrait"></i><%= post_comment.user.users_name %>
-              </td>
-            <% end %>
-            </tr>
-            <tr>
-              <td>
-                <%= post_comment.comment %>
-              </td>
-              <td>
-                <% if post_comment.user == current_user %>
-                  <%= link_to "DELETE", post_post_comment_path(@post,post_comment.id), method: :delete, class: "btn btn-danger btn-sm" %>
-                <% end %>
-              </td>
-            </tr>
-          </table>
         <% end %>
       <% end %>
-    </div>
       <% if user_signed_in? %>
       <div class="new-comment">
         <h3>New Comment</h3>
@@ -99,25 +103,10 @@
           </div>
         <% end %>
           <%= f.text_field :comment, class: "form-control" %><br/>
-          <%= f.submit "Comment", class: "btn btn-light" %>
+          <%= f.submit "Comment", class: "btn btn-dark" %>
         <% end %>
       </div>
       <% end %>
-      </div>
-    <div class="col-3">
-      <div class="post-right">
-      <% @users.reverse_each do |users| %>
-      　<div class="all-poster">
-          <h6>
-          <%= link_to user_path(users) ,style: "color:black;" do %>
-            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-            <i class="fas fa-portrait"></i><%= users.users_name %>
-          <% end %>
-          </h6>
-        </div>
-      <% end %>
-      <%= paginate @users %>
-      </div>
     </div>
   </div>
 </div>

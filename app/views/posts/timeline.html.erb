@@ -1,32 +1,50 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title">New Post</h2></div>
+    <div class="offset-1 col-3 "><h2 class="post-list-left">New Post</h2></div>
     <div class="offset-1 col-4 "><h2 class="post-list-title">Home</h2></div>
-    <div class="col-2 "><h2 class="post-list-title">Posters</h2></div>
+    <div class="col-2 "><h2 class="post-list-right">Posters</h2></div>
   </div>
   <div class="row post-row">
-    <div class="offset-1 col-3 post-left">
-      <div class="js-message-errors"></div>
+    <div class="col-sm-3 post-left">
       <%= render "posts/new", posts: @post %>
     </div>
-    <div class="col-5">
-      <div id="post">
-        <%= render "posts/all", posts: @posts %>
-      </div>
+    <div class="col-5 post-center">
+      <% if @posts.present? %>
+        <div id="post">
+          <%= render "posts/all", posts: @posts %>
+        </div>
+      <% else %>
+        <div class="no-poster">
+          <h2>
+            <p>No one is following yet.</p>
+            <p>Follow your favorite posters</p>
+            <p>and have them appear on your</p>
+            <p></p>timeline！</p>
+          </h2>
+        </div>
+      <% end %>
     </div>
     <div class="col-3">
       <div class="post-right">
-      <% @users.reverse_each do |users| %>
-      　<div class="all-poster">
-          <h6>
-          <%= link_to user_path(users) ,style: "color:black;" do %>
-            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-            <i class="fas fa-portrait"></i><%= users.users_name %>
-          <% end %>
-          </h6>
-        </div>
-      <% end %>
-      <%= paginate @users %>
+        <% @users.reverse_each do |users| %>
+      　  <div class="all-poster">
+            <h6>
+              <%= link_to user_path(users) ,style: "color:white;" do %>
+                <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                <i class="fas fa-portrait"></i> <%= users.users_name %>
+              <% end %>
+            </h6>
+            <div>
+              <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
+              <% if current_user.following?(users) %>
+                <%= link_to 'Unfollow', unfollow_path(users), method: :POST, class: "btn btn-secondary btn-sm" %>
+              <% else %>
+                <%= link_to 'Follow', follow_path(users), method: :POST, class: "btn btn-dark btn-sm" %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <div class="fixed-bottom top-paginate"><%= paginate @users %></div>
       </div>
     </div>
   </div>

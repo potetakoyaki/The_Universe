@@ -1,39 +1,52 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title">Poster</h2></div>
+    <div class="offset-1 col-3 "><h2 class="post-list-left"><i class="fas fa-portrait"></i> <%= current_user.users_name %></h2></div>
     <div class="offset-1 col-4"><h2 class="post-list-title">Edit Post</h2></div>
-    <div class="col-2 "><h2 class="post-list-title">All Posters</h2></div>
   </div>
   <div class="row post-row">
     <div class="col-3 post-left">
       <%= render "users/info", user: @user %>
-    </div>
-    <div class="col-5">
-      <div class="border-block">
-      <%= form_with model: @post do |f| %>
-      <%= render "layouts/errors", model: @post %>
-        <div><h3><%= f.label :Post %></h3></div>
-        <div><%= f.text_area :body,class: "form-control" %></div>
-        <div class="form-group text-center"><%= attachment_image_tag @post, :image, size: "300x200" %></div>
-        <div class="form-group"><%= f.attachment_field :image %></div>
+      <div>
+        <%= link_to "DM", rooms_path, class: "btn btn-dark btn-block" %>
       </div>
-        <div class="form-group"><%= f.submit "Update",class: "btn btn-dark btn-block" %></div>
-        <div><%= link_to "Delete", post_path(@post),method: :delete, class: "btn btn-danger btn-block" %></div>
-      <% end %>
+      <div>
+      　<%= link_to 'Edit',edit_user_path(current_user),class: "btn btn-secondary btn-block"%>
+      </div>
     </div>
-    <div class="col-3">
-      <div class="post-right">
-      <% @users.reverse_each do |users| %>
-      　<div class="all-poster">
-          <h6>
-          <%= link_to user_path(users) ,style: "color:black;" do %>
-            <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-            <i class="fas fa-portrait"></i><%= users.users_name %>
-          <% end %>
-          </h6>
-        </div>
-      <% end %>
-      <%= paginate @users %>
+    <div class="offset-3 col-7">
+      <div style="margin-top:10px;">
+        <div class="card mb-6">
+        <%= form_with model: @post do |f| %>
+          <%= render "layouts/errors", model: @post %>
+          <div class="card-body">
+            <div>
+              <h4><strong>Edit Image</strong></h4>
+            <div class="item_image_btn">
+              <%= f.attachment_field :image, id: "file" %>
+            </div>
+            <div id="img_field" onClick="$('#file').click()" >
+              <%= attachment_image_tag @post, :image,id: "preview", class:"edit-img"%>
+            </div>
+            <script>
+              $('#file').on('change', function (e) {
+                var reader = new FileReader();
+                  reader.onload = function (e) {
+                    $("#preview").attr('src', e.target.result);
+              }
+              reader.readAsDataURL(e.target.files[0]);
+            });
+            </script>
+            </div>
+            <div style="margin-top:170px;">
+              <h4><strong>Edit Content</strong></h4>
+              <%= f.text_area :body,class: "form-control" %>
+            </div>
+            <div style="margin-top:20px;">
+              <span><%= f.submit "Update",class: "btn btn-dark" %></span>
+              <span style="margin-left:5%;"><%= link_to "Delete", post_path(@post),method: :delete, class: "btn btn-danger" %></span>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
