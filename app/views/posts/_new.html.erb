@@ -1,11 +1,28 @@
 <div>
-  <%= form_with model: posts, remote: true do |f| %>
-    <div class="form-group">
-       <h3><strong><%= f.label :Post %></strong></h3>
-      <%= f.text_area :body, class: 'form-control posts_body' %>
+  <%= form_with model: posts, local: true do |f| %>
+    <%= render 'layouts/errors', model: posts  %>
+    <span style="color:white;">
+    <p><strong>Share your post by pressing</br>
+    the image below to select your favorite image！</strong></p>
+    </span>
+    <div class="item_image_btn">
+      <%= f.attachment_field :image, id: "file" %>
     </div>
+    <div id="img_field" onClick="$('#file').click()" >
+      <img src="/assets/no_image.jpeg" class="new-img" id="preview">
+    </div>
+    <script>
+      $('#file').on('change', function (e) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $("#preview").attr('src', e.target.result);
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    });
+    </script>
     <div class="form-group">
-      <%= f.attachment_field :image, id: "postimage" %>
+      <h3><%= f.label :content %></h3>
+      <%= f.text_area :body, class: 'form-control posts_body' %>
     </div>
     <div class="form-group">
       <%= f.submit class: 'btn btn-dark btn-block' %>

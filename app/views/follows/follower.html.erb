@@ -1,6 +1,6 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
-    <div class="offset-1 col-3 "><h2 class="post-list-title"><i class="fas fa-portrait"></i><%= @user.users_name %></h2></div>
+    <div class="offset-1 col-3 "><h2 class="post-list-left"><i class="fas fa-portrait"></i> <%= @user.users_name %></h2></div>
     <div class="offset-1 col-7"><h2 class="post-list-title">Follows</h2></div>
   </div>
   <div class="row post-row">
@@ -16,9 +16,10 @@
         <% end %>
       <% end %>
     </div>
-    <div class="offset-1 col-7">
+    <div class="offset-4 col-7">
+      <% if @users.present? %>
       <% @users.each do |users| %>
-      <%= link_to user_path(users) do %>
+      <%= link_to user_path(users), style:"color:white;" do %>
         <table class="table  table-borderless">
           <tr>
             <th style="width: 5%"></th>
@@ -27,9 +28,9 @@
             <th style="width: 10%"></th>
           </tr>
           <tr>
-            <td> <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %></td>
-            <td><i class="fas fa-portrait"></i><%= users.users_name %></td>
-            <td>Post<i class="fas fa-rocket"></i><%= users.posts.count %></td>
+            <td> <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %></td>
+            <td><i class="fas fa-portrait"></i> <%= users.users_name %></td>
+            <td>Post <i class="fas fa-rocket"></i> <%= users.posts.count %></td>
             <td>
               <% if user_signed_in? %>
                 <% unless current_user == users %>
@@ -41,6 +42,11 @@
         </table>
       <% end %>
       <% end %>
+     <% else %>
+      <h2>No one is following yet!</h2>
+　　　<h2>Follow your favorite posters and</h2>
+　　　<h2>have them appear on your timeline!</h2>
+    <% end %>
     </div>
   </div>
 </div>

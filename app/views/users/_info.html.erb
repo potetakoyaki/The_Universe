@@ -1,23 +1,14 @@
-<div class="border-block">
   <div>
-    <%= attachment_image_tag(user, :image, size: "200x130",class:"info-img", fallback: "no_image.png",) %>
+    <%= attachment_image_tag(user, :image, size: "200x130",class:"info-img", fallback: "no_image.jpeg",) %>
   </div>
   <table class='table table-borderless'>
     <tr>
 	    <th style="width:4%;">Name</th>
   	  <td>
-	      <%= link_to user_path(user),style:"color:black" do %>
+	      <%= link_to user_path(user),style:"color:white" do %>
 	        <%= user.name %>
 	      <% end %>
 	    </td>
-    </tr>
-    <tr>
-      <th>User Name</th>
-      <td>
-  	    <%= link_to user_path(user),style:"color:black" do %>
-  	        <%= user.users_name %>
-  	    <% end %>
-  	  </td>
     </tr>
     <tr>
 	    <th>Introduction</th>
@@ -26,7 +17,7 @@
     <tr>
       <th>Follow</th>
       <td>
-        <%= link_to follower_path(user),style:"color:black" do %>
+        <%= link_to follower_path(user),style:"color:white" do %>
           <%= user.following_user.count %>
         <% end %>
       </td>
@@ -34,10 +25,9 @@
     <tr>
       <th>Follower</th>
       <td>
-        <%= link_to followed_path(user),style:"color:black" do %>
+        <%= link_to followed_path(user),style:"color:white" do %>
           <%= user.follower_user.count %>
         <% end %>
       </td>
     </tr>
   </table>
-</div>

@@ -1,62 +1,74 @@
 <div class="container" style="max-width:100%;">
   <div class="row post-list">
     <div class="offset-1 col-3 ">
-      <%= link_to rooms_path, style:"color:black;" do %>
         <h2 class="post-list-title">DM</h2>
-      <% end %>
       </div>
-    <div class="offset-1 col-6">
+    <div class="col-6">
       <h3 class="post-list-title">
         <% @entry.each do |e| %>
-          <strong><a href="/users/<%= e.user.id %>" style="color:black;"><i class="fas fa-portrait"></i><%= e.user.users_name%></a></strong>
-          <small>さんとメッセージ中</small>
+          <strong><a href="/users/<%= e.user.id %>" style="color:white;"><i class="fas fa-portrait"></i> <%= e.user.users_name%></a></strong>
+          <small>さんとメッセージ</small>
         <% end %>
       </h3>
     </div>
   </div>
-  <div class="row post-row">
-    <div class="offset-1 col-3 post-left">
+  <div class="row">
+    <div class="offset-1 col-3 DM-left">
       <% if @anotherEntries.present? %>
-      <% @anotherEntries.each do |e| %>
-        <%= link_to room_path(e.room.id,anchor: "target"),style:"color:black;" do %>
+      <% @anotherEntries.reverse.each do |e| %>
+        <%= link_to room_path(e.room.id, anchor: "target"),style:"color:white;" do %>
           <div class="dm-all">
             <h4>
-                <%= attachment_image_tag(e.user, :image, size: "50x30", fallback: "no_image.png",class:"profile-image") %>
-                <i class="fas fa-portrait"></i><%= e.user.users_name %></br>
+              <%= attachment_image_tag(e.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+              <i class="fas fa-portrait"></i> <%= e.user.users_name %></br>
             </h4>
-          <%= paginate @users %>
+            <%= e.room.messages.order(created_at: :desc).take.try(:content) %></br>
+            <%= e.room.messages.order(created_at: :desc).take.try(:created_at) %>
           </div>
         <% end %>
       <% end %>
+      <div class="fixed-bottom paginate"><%= paginate @anotherEntries %></div>
       <% end %>
     </div>
-    <div class="offset-1 col-6">
+    <div class="offset-4 col-7">
       <div class="row all-messages">
         <div class="col-12">
       　　<div>
           <% if @messages.present? %>
             <% @messages.each do |m| %>
               <% if m.user_id == current_user.id %>
+                <div class="current_user_list">
+                  <%= attachment_image_tag(m.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                　<%= link_to user_path(m.user.id) ,style: "color:white;" do %>
+                    <i class="fas fa-portrait"></i> <%= m.user.users_name %>
+                  <%end %>
+                </div>
                 <div class="current_user">
-                  <strong class="current_user"><%= m.content %></strong>
-                    <small class="current_user"><i class="fas fa-portrait"></i><%= m.user.users_name %></small>
+                  <strong class="current_user"><%= m.content %></strong></br>
+                  <small class="current_user"><%= m.created_at %></small>
                 </div>
               <% else %>
+                <div class="visited_user_list">
+                  <%= attachment_image_tag(m.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                　<%= link_to user_path(m.user.id) ,style: "color:white;" do %>
+                    <i class="fas fa-portrait"></i> <%= m.user.users_name %>
+                  <%end %>
+                </div>
                 <div class="visited_user">
-                  <strong class="visited_user"><%= m.content %></strong>
-                  <small class="visited_user"><i class="fas fa-portrait"></i><%= m.user.users_name %></small>
+                  <strong class="visited_user"><%= m.content %></strong></br>
+                  <small class="visited_user"><%= m.created_at %></small>
                 </div>
               <% end %>
             <% end %>
           <% else %>
-            <h4 class="text-left">No Massege</h4>
+            <h2 class="text-left">No Massege</h2>
           <% end %>
           </div>
           <div class id="target"></div>
           <div class="fixed-bottom message-form">
             <div class="message-form-block">
               <%= form_for @message do |f| %>
-                <%= f.text_field :content, :placeholder => "Please enter a message" , class:"message-form-text", :size => 30 %>
+                <%= f.text_field :content, :placeholder => "Please enter a message" , class:"message-form-text" %>
                 <%= f.hidden_field :room_id, :value => @room.id %>
                 <%= f.submit "Send", class: "message-submit" %>
               <% end %>
