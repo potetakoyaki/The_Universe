@@ -86,6 +86,15 @@
   margin-right: 30px;
  }
 
+ .search-form{
+  border-radius: 30px;
+ }
+
+ select{
+  border-radius: 30px;
+  height: 30px;
+ }
+
  .top-link{
   color: black;
  }
@@ -97,8 +106,9 @@
 
 .post-list{
   z-index: 800;
-  position:  sticky;
+  position:  fixed;
   align-self: baseline;
+  width: 100%;
   top: 80px;
   height: 100px;
   border-bottom: double 3px black;
@@ -143,6 +153,7 @@
  .post-center{
  margin-left: 29%;
  margin-right: 4%;
+ margin-top: 80px;
  }
 
  .post-right{
@@ -214,6 +225,15 @@
   margin-bottom: 10px;
  }
 
+ .profile-image-edit{
+  border-radius: 50%;
+  width:  200px;
+  height: 200px;
+  background-position: center;
+  object-fit:cover;
+  border: 2px solid black;
+ }
+
  .profile-image{
   border-radius: 50%;
   width:  40px;
@@ -225,11 +245,18 @@
 
  .new-img{
   width: 100%;
-  height: 200px;
+  height: 90%;
   background-position: center;
   background-size: cover;
   object-fit:cover;
   border-radius: 5px;
+ }
+
+ #img_field {
+  font-style: inherit;
+  height: 180px;
+  text-align: center;
+  margin-top: 10px;
  }
 
  .edit-img{
@@ -240,7 +267,6 @@
   object-fit:cover;
   border-radius: 5px;
  }
-
 
  .unsubscribe-text{
   color:white;
@@ -327,7 +353,7 @@
  }
 
  .all-messages{
-  margin-top: 30px;
+  margin-top: 50px;
   margin-bottom: 100px;
   padding: 0.25em 1em;
  }
@@ -381,16 +407,6 @@
 
  .item_image_btn{
   display: none;
- }
-
- #img_field {
-  font-style: inherit;
-  margin: 0 auto;
-  height: 200px;
-  text-align: center;
-  line-height: 40px;
-  margin-left:0;
-  margin: 10px 0 20px 0;
  }
 
  .card{

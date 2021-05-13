@@ -51,7 +51,7 @@
     <div class="col-3">
       <div class="post-right">
         <% @users.reverse_each do |users| %>
-      　  <div class="all-poster">
+          <% unless current_user.following?(users) %>
       　     <% if user_signed_in? %>
             <h6>
               <%= link_to user_path(users) ,style: "color:white;" do %>
@@ -61,11 +61,7 @@
             </h6>
             <div>
               <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
-              <% if current_user.following?(users) %>
-                <%= link_to 'Unfollow', unfollow_path(users), method: :POST, class: "btn btn-secondary btn-sm" %>
-              <% else %>
-                <%= link_to 'Follow', follow_path(users), method: :POST, class: "btn btn-dark btn-sm" %>
-              <% end %>
+              <%= link_to 'Follow', follow_path(users), method: :POST, class: "btn btn-dark btn-sm" %>
             </div>
             <% else %>
               <h6>
@@ -76,7 +72,7 @@
                 <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
               </h6>
             <% end %>
-          </div>
+           <% end %>
         <% end %>
         <div class="fixed-bottom top-paginate"><%= paginate @users %></div>
       </div>

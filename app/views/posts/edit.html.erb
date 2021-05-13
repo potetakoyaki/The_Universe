@@ -21,21 +21,21 @@
           <div class="card-body">
             <div>
               <h4><strong>Edit Image</strong></h4>
-            <div class="item_image_btn">
-              <%= f.attachment_field :image, id: "file" %>
-            </div>
-            <div id="img_field" onClick="$('#file').click()" >
-              <%= attachment_image_tag @post, :image,id: "preview", class:"edit-img"%>
-            </div>
-            <script>
-              $('#file').on('change', function (e) {
-                var reader = new FileReader();
-                  reader.onload = function (e) {
-                    $("#preview").attr('src', e.target.result);
-              }
-              reader.readAsDataURL(e.target.files[0]);
-            });
-            </script>
+              <div class="item_image_btn">
+                <%= f.attachment_field :image, id: "file" %>
+              </div>
+              <div id="img_field" onClick="$('#file').click()" >
+                <%= attachment_image_tag @post, :image,id: "preview", class:"edit-img"%>
+              </div>
+              <script>
+                $('#file').on('change', function (e) {
+                  var reader = new FileReader();
+                    reader.onload = function (e) {
+                      $("#preview").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files[0]);
+              });
+              </script>
             </div>
             <div style="margin-top:170px;">
               <h4><strong>Edit Content</strong></h4>

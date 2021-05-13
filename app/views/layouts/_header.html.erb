@@ -13,10 +13,10 @@
             <li class="nav-item header-link"><%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link text-light'%></li>
             <li class="nav-item header-link">
               <%= form_with url: search_path, method: :get, local: true do |f| %>
-                <%= f.text_field "search[value]" %>
+                <%= f.text_field "search[value]",class:"search-form" %>
                 <%= f.select "search[model]", options_for_select({"User" => "user", "Post" => "post"}) %>
                 <%= f.select "search[how]", options_for_select({"Match" => "match", "Partical" => "partical"}) %>
-                <%= f.submit :"Searh" %>
+                <%= f.submit :"Searh",class:"btn btn-dark btn-sm" %>
               <% end %>
             </li>
           <% else %>
