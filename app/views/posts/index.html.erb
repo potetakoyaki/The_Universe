@@ -52,6 +52,7 @@
       <div class="post-right">
         <% @users.reverse_each do |users| %>
       　  <div class="all-poster">
+      　     <% if user_signed_in? %>
             <h6>
               <%= link_to user_path(users) ,style: "color:white;" do %>
                 <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
@@ -66,6 +67,15 @@
                 <%= link_to 'Follow', follow_path(users), method: :POST, class: "btn btn-dark btn-sm" %>
               <% end %>
             </div>
+            <% else %>
+              <h6>
+                <%= link_to user_path(users) ,style: "color:white;" do %>
+                  <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                  <i class="fas fa-portrait"></i> <%= users.users_name %>
+                <% end %>
+                <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
+              </h6>
+            <% end %>
           </div>
         <% end %>
         <div class="fixed-bottom top-paginate"><%= paginate @users %></div>
