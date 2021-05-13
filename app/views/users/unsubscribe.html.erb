@@ -1,10 +1,12 @@
-<div class="text-center unsubscribe-text">
+<div class="text-center Withdraw-box">
   <h3 class="font-weight-bold">Do you really want to Withdraw?</h3>
-  <h4 class="unsubscribe-text">
+  <h4 class="Withdraw-text">
     If you Withdraw, your membership registration information and</br>
     all previous posts will be deleted.</br>
     To Withdraw, click "Withdraw".
   </h4>
-  <%= link_to 'Don’t withdraw', user_path(@user), class: "btn btn-sm btn-light" %>
+  <spnan class="withdraw">
+    <%= link_to 'Don’t withdraw', user_path(@user), class: "btn btn-sm btn-light" %>
+  </spnan>
   <%= link_to 'Withdraw', user_path(@user), method: :delete, class: "btn btn-sm btn-danger" %>
 </div>

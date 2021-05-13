@@ -11,25 +11,27 @@
     </div>
     <div class="offset-4 col-5 all-messages">
       <% if @anotherEntries.present? %>
-      <% @anotherEntries.each do |e| %>
-        <%= link_to room_path(e.room.id,anchor: "target"),style:"color:white;" do %>
-          <div class="dm-all">
-            <h4>
-              <%= attachment_image_tag(e.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
-              <i class="fas fa-portrait"></i> <%= e.user.users_name %></br>
-            </h4>
-            <%= e.room.messages.order(created_at: :desc).take.try(:content) %></br>
-            <%= e.room.messages.order(created_at: :desc).take.try(:created_at) %>
-          </div>
+        <% @anotherEntries.each do |e| %>
+          <%= link_to room_path(e.room.id,anchor: "target"),style:"color:white;" do %>
+            <div class="dm-all">
+              <h4>
+                <%= attachment_image_tag(e.user, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                <i class="fas fa-portrait"></i> <%= e.user.users_name %></br>
+              </h4>
+              <%= e.room.messages.order(created_at: :desc).take.try(:content) %></br>
+              <%= e.room.messages.order(created_at: :desc).take.try(:created_at) %>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
+      <% else %>
+        <h2 class="text-left">No Massege</h2>
       <% end %>
     </div>
     <div class="col-3">
       <div class="post-right">
         <% @users.reverse_each do |users| %>
-          <% unless current_user.following?(users) %>
-      　     <% if user_signed_in? %>
+      　  <% if user_signed_in? %>
+      　     <% unless current_user.following?(users) %>
             <h6>
               <%= link_to user_path(users) ,style: "color:white;" do %>
                 <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
@@ -40,16 +42,16 @@
               <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
               <%= link_to 'Follow', follow_path(users), method: :POST, class: "btn btn-dark btn-sm" %>
             </div>
-            <% else %>
-              <h6>
-                <%= link_to user_path(users) ,style: "color:white;" do %>
-                  <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
-                  <i class="fas fa-portrait"></i> <%= users.users_name %>
-                <% end %>
-                <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
-              </h6>
             <% end %>
-           <% end %>
+          <% else %>
+            <h6>
+              <%= link_to user_path(users) ,style: "color:white;" do %>
+                <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
+                <i class="fas fa-portrait"></i> <%= users.users_name %>
+              <% end %>
+              <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
+            </h6>
+          <% end %>
         <% end %>
         <div class="fixed-bottom top-paginate"><%= paginate @users %></div>
       </div>

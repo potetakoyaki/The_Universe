@@ -16,10 +16,10 @@
         <% end %>
       <% end %>
     </div>
-    <div class="offset-4 col-7">
+    <div class="offset-4 col-7 post-center">
       <% if @users.present? %>
       <% @users.each do |users| %>
-      <%= link_to user_path(users) do %>
+      <%= link_to user_path(users), style:"color:white;" do %>
         <table class="table  table-borderless">
           <tr>
             <th style="width: 5%"></th>
@@ -48,8 +48,10 @@
       <% end %>
       <% end %>
     <% else %>
+    <div class="no-follow">
       <h2 >Not followed by anyone yet!</h2>
 　　　<h2>Post a lot and get more followers!</h2>
+　　</div>
     <% end %>
     </div>
   </div>

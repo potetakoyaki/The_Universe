@@ -16,7 +16,7 @@
         <% end %>
       <% end %>
     </div>
-    <div class="offset-4 col-7">
+    <div class="offset-4 col-7 post-center">
       <% if @users.present? %>
       <% @users.each do |users| %>
       <%= link_to user_path(users), style:"color:white;" do %>
@@ -42,10 +42,12 @@
         </table>
       <% end %>
       <% end %>
-     <% else %>
+    <% else %>
+    <div class="no-follow">
       <h2>No one is following yet!</h2>
 　　　<h2>Follow your favorite posters and</h2>
 　　　<h2>have them appear on your timeline!</h2>
+　　</div>
     <% end %>
     </div>
   </div>
