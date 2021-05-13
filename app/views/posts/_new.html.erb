@@ -9,7 +9,7 @@
       <%= f.attachment_field :image, id: "file" %>
     </div>
     <div id="img_field" onClick="$('#file').click()" >
-      <img src="/assets/no_image.jpeg" class="new-img" id="preview">
+      <img asset_path("no_image.jpeg", class: "new-img", id:"preview")>
     </div>
     <script>
       $('#file').on('change', function (e) {
