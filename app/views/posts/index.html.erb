@@ -18,7 +18,7 @@
             <div class='offset-1 col-11'>
               <h3 class="top-list"><strong>Welcome!!</strong></h3>
               <h2 class="top-list"><strong><i class="fas fa-star-and-crescent"></i>The Universe</strong></h2>
-              <p class="top-list">People who get together and like the universe</p>
+              <p class="top-list">People who get together and like the universe.</p>
               <p class="top-list">You can freely talk about the universe here.</p>
               <p class="top-list">Let's make the universe friends<i class="fas fa-users"></i></p>
               <div class="btn-wrapper col-10">
@@ -51,7 +51,7 @@
     <div class="col-3">
       <div class="post-right">
         <% @users.reverse_each do |users| %>
-      　  <% if user_signed_in? %>
+      　   <% if user_signed_in? %>
       　     <% unless current_user.following?(users) %>
             <h6>
               <%= link_to user_path(users) ,style: "color:white;" do %>

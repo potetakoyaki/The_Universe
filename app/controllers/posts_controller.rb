@@ -7,7 +7,7 @@ class PostsController < ApplicationController
       if user_signed_in?
         @users = User.where.not(id: current_user.id).page(params[:page]).per(5)
       else
-        @users = User.all.page(params[:page]).per(5)
+        @users = User.all.page(params[:page]).per(4)
       end
     end
 
