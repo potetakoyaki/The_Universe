@@ -10,7 +10,7 @@ class PostsController < ApplicationController
         @users = User.all.page(params[:page]).per(5)
       end
     end
-    
+
 
     def show
     @post = Post.find(params[:id])
@@ -92,7 +92,7 @@ class PostsController < ApplicationController
       @follow_users = @user.following_user
       @posts = @post_all.where(user_id: @follow_users)
     end
-    
+
     private
     def post_params
       params.require(:post).permit(:body, :image)

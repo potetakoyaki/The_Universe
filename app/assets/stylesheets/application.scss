@@ -32,6 +32,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  font-family: 'Comic Sans MS',sans-serif;
  }
 
  header{
@@ -44,6 +45,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: 1px solid gray;
+  position: fixed;
+ }
+
+ .nav-font{
+  font-family: 'Comic Sans MS',sans-serif;
  }
 
  label{
@@ -64,6 +70,11 @@
 
  td{
   color:white;
+ }
+
+ .notice,
+ .alert{
+  color: red;
  }
 
  div#navbarNavDropdown.navbar-collapse.collapse.show{
@@ -150,9 +161,9 @@
  }
 
  .post-center{
+ top: 200px;
  margin-left: 29%;
  margin-right: 4%;
- margin-top: 150px;
  }
 
  .post-right{

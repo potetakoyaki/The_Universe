@@ -68,9 +68,9 @@
             <h6>
               <%= link_to user_path(users) ,style: "color:white;" do %>
                 <%= attachment_image_tag(users, :image, size: "50x30", fallback: "no_image.jpeg",class:"profile-image") %>
-                <i class="fas fa-portrait"></i> <%= users.users_name %>
+                <i class="fas fa-portrait"></i> <%= users.users_name %></br>
+                <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
               <% end %>
-              <span class="post-count">Post <i class="fas fa-rocket"></i> <%= users.posts.count %></span>
             </h6>
           <% end %>
         <% end %>
