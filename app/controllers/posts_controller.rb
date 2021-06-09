@@ -11,7 +11,7 @@ class PostsController < ApplicationController
       end
     end
 
-
+    #投稿
     def show
     @post = Post.find(params[:id])
     @user = @post.user
